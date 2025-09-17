@@ -40,7 +40,6 @@
 
         <section class="services">
             <h2>Nossos Serviços</h2>
-            
             <div class="service-card">
                 <h3>Alongamento de Fibra de Vidro</h3>
                 <p>Técnica que utiliza fibra de vidro para alongar as unhas de forma resistente e natural, proporcionando durabilidade e beleza.</p>
@@ -95,19 +94,21 @@
 
     <script src="js/script.js"></script>
     <script>
-        // Seleciona a imagem com a classe 'logo-img'
-        const logo = document.querySelector('.logo-img'); 
+        document.addEventListener('DOMContentLoaded', () => {
+            // Seleciona a imagem com a classe 'logo-img'
+            const logo = document.querySelector('.logo-img'); 
 
-        // Adiciona um evento de clique à imagem
-        logo.addEventListener('click', () => {
-          // Rola a página para o topo
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // Adiciona um efeito de rolagem suave
-          });
+            // Verifica se a imagem foi encontrada antes de adicionar o evento
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    // Rola a página para o topo
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth' // Adiciona um efeito de rolagem suave
+                    });
+                });
+            }
         });
     </script>
 </body>
-
 </html>
-
