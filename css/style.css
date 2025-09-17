@@ -122,8 +122,8 @@ body {
 
 /* Header Aprimorado */
 header {
-  /* Alterado: Cor de fundo para uma versão mais clara e transparente */
-  background: rgba(255, 255, 255, 0.8);
+  /* Alterado para degradê de branco para cinza claro */
+  background: linear-gradient(to right, #ffffff, #f0f0f0);
   padding: 1rem 0;
   position: sticky;
   top: 0;
@@ -135,8 +135,8 @@ header {
 }
 
 .header-scrolled {
-  /* Alterado: Fundo para uma cor mais clara e transparente ao rolar */
-  background: rgba(255, 255, 255, 0.95);
+  /* Alterado para degradê de branco para cinza claro ao rolar */
+  background: linear-gradient(to right, #ffffff, #f0f0f0);
   backdrop-filter: var(--blur-heavy);
   -webkit-backdrop-filter: var(--blur-heavy);
 }
@@ -177,7 +177,6 @@ header {
   font-family: 'Great Vibes', cursive;
   font-size: 2.5rem;
   font-weight: 600;
-  /* Alterado: Cor do texto para harmonizar com o fundo claro */
   color: var(--text-color);
   white-space: nowrap;
   background: var(--gradient-rainbow);
@@ -920,8 +919,8 @@ section:hover {
 
 /* Footer Aprimorado */
 footer {
-  /* Alterado: Cor de fundo para uma versão mais clara e transparente */
-  background: rgba(255, 255, 255, 0.8);
+  /* Alterado para degradê de branco para cinza claro */
+  background: linear-gradient(to right, #ffffff, #f0f0f0);
   color: var(--text-color);
   padding: 2rem;
   text-align: center;
