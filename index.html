@@ -94,6 +94,20 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+        // Seleciona a imagem com a classe 'logo-img'
+        const logo = document.querySelector('.logo-img'); 
+
+        // Adiciona um evento de clique à imagem
+        logo.addEventListener('click', () => {
+          // Rola a página para o topo
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Adiciona um efeito de rolagem suave
+          });
+        });
+    </script>
 </body>
 
 </html>
+
