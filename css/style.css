@@ -1232,3 +1232,343 @@ p {
 .section-title:hover::after {
   transform: scaleX(1);
 }
+
+/* =================================================== */
+/* CSS EXTRA - AJUSTES FINOS, ANIMAÇÕES E UTILS (400+) */
+/* =================================================== */
+
+/* Variaveis extras para animações e utilitarios */
+:root {
+    --text-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --text-shadow-heavy: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --hover-translate-y: -4px;
+    --hover-scale: 1.03;
+    --hover-shadow: var(--shadow-md);
+    --focus-outline: 2px solid var(--primary-color);
+}
+
+/* Animação para elementos que entram na tela com movimento de scroll (Parallax) */
+[data-scroll-animation] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+}
+
+[data-scroll-animation].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animate-fade-in {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.animate-slide-up {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: slideUp 0.8s forwards cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efeito de "shimmer" (brilho) em cards e seções */
+.card-shimmer {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+    transform: skewX(-20deg);
+    pointer-events: none;
+}
+
+.card-shimmer:hover::before {
+    animation: shimmerEffect 1s;
+}
+
+@keyframes shimmerEffect {
+    0% { transform: skewX(-20deg) translateX(0); }
+    100% { transform: skewX(-20deg) translateX(200%); }
+}
+
+/* Animações de Hover Avançadas para Ícones e Botões */
+.icon-scale-rotate {
+    transition: transform 0.3s var(--transition-elastic);
+    will-change: transform;
+}
+
+.icon-scale-rotate:hover {
+    transform: scale(1.2) rotate(10deg);
+}
+
+.button-press-effect {
+    transition: transform 0.1s ease-out;
+}
+
+.button-press-effect:active {
+    transform: scale(0.95);
+}
+
+/* Utilitários de Layout e Estilo */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-subtle {
+    color: var(--text-light);
+    font-weight: 300;
+}
+
+.rounded-full {
+    border-radius: 9999px;
+}
+
+.shadow-lg-pink {
+    box-shadow: 0 10px 40px rgba(216, 66, 122, 0.25);
+}
+
+/* Ajustes de Bordas e Contornos */
+.hover-border-grow {
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.hover-border-grow:hover {
+    border-color: var(--primary-color);
+}
+
+/* Melhoria no foco (acessibilidade) */
+a:focus, button:focus, input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(216, 66, 122, 0.3), 0 0 0 1px var(--white);
+    transition: box-shadow 0.2s ease;
+}
+
+/* Efeito de degradê para o texto em destaque */
+.heading-gradient {
+  background: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block; /* Necessário para o gradiente de texto funcionar corretamente */
+}
+
+/* Ajustes de elementos específicos */
+.service-card {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.service-card:hover {
+    transform: translateY(var(--hover-translate-y));
+    box-shadow: var(--hover-shadow);
+}
+
+.benefits li {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.benefits li:hover {
+    transform: translateX(10px);
+    box-shadow: var(--hover-shadow);
+}
+
+/* Mais detalhes para o popup */
+.popup-content {
+    animation: popupEntry 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popupEntry {
+    0% {
+        transform: scale(0.9) translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Ajustes para dispositivos móveis */
+@media (max-width: 768px) {
+    .section-title::after {
+        width: 40px;
+    }
+}
+
+@media (max-width: 576px) {
+    h1, h2 {
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+}
+/* =================================================== */
+/* CSS EXTRA - AJUSTES FINOS E ANIMAÇÕES INÉDITAS      */
+/* =================================================== */
+
+/* Ajustes de Transições Globais */
+:root {
+  --transition-ease: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-elastic: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Animação para a Barra de Rolagem (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light-color);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pink-dark);
+}
+
+/* Animação de Divisores/Linhas */
+.divider {
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-primary);
+  margin: 2rem 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1px;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--light-color), transparent);
+  animation: dividerFlow 5s infinite;
+}
+
+@keyframes dividerFlow {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Efeito de Brilho no Hover para Cards */
+.card-shine-effect {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.card-shine-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 100% 100%, transparent 20%, rgba(255, 255, 255, 0.1) 80%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: -1;
+}
+
+.card-shine-effect:hover::before {
+  opacity: 1;
+}
+
+/* Efeito de Borda Animada para Botões */
+.btn-animated-border {
+  position: relative;
+  z-index: 1;
+  background: none;
+  border: 2px solid transparent;
+  transition: var(--transition-ease);
+}
+
+.btn-animated-border::before,
+.btn-animated-border::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-animated-border::before {
+  top: 0;
+  left: 0;
+  border-top: 2px solid var(--primary-color);
+  border-right: 2px solid var(--primary-color);
+}
+
+.btn-animated-border::after {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid var(--primary-color);
+  border-left: 2px solid var(--primary-color);
+}
+
+.btn-animated-border:hover::before,
+.btn-animated-border:hover::after {
+  width: 100%;
+  height: 100%;
+}
+
+/* Animação para Títulos e Textos */
+.text-pop-up {
+  animation: textPopUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes textPopUp {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Melhorias de Usabilidade */
+.clickable {
+  cursor: pointer;
+}
+
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
