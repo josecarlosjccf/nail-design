@@ -822,3 +822,73 @@ a:focus, button:focus, input:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(216, 66, 122, 0.3);
 }
+
+/* ========================================= */
+/* CSS EXTRA - ANIMAÇÃO TEXTO DO HEADER     */
+/* ========================================= */
+
+/* Animação sutil de degradê para o texto do header */
+.logo-text {
+  background: linear-gradient(45deg, #ffffff, #e5e5e5, #d0d0d0, #ffffff);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: headerTextGlow 4s ease-in-out infinite;
+  will-change: background-position;
+}
+
+@keyframes headerTextGlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Fallback para navegadores que não suportam background-clip */
+@supports not (-webkit-background-clip: text) {
+  .logo-text {
+    color: #ffffff;
+    animation: headerTextColorFallback 4s ease-in-out infinite;
+  }
+  
+  @keyframes headerTextColorFallback {
+    0%, 100% {
+      color: #ffffff;
+    }
+    50% {
+      color: #d0d0d0;
+    }
+  }
+}
+
+/* Versão alternativa mais sutil (descomente se preferir) */
+/*
+.logo-text {
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%, #ffffff 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: headerTextSubtle 6s ease-in-out infinite;
+}
+
+@keyframes headerTextSubtle {
+  0%, 100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+}
+*/
+
+/* Reduz a animação para usuários que preferem menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  .logo-text {
+    animation-duration: 8s;
+    animation-timing-function: linear;
+  }
+}
