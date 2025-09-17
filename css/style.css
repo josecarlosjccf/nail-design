@@ -72,6 +72,13 @@ body {
   overflow-x: hidden;
 }
 
+/* Classe para impedir scroll quando popup aberto */
+.no-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
 /* Background parallax otimizado */
 .parallax-background::before {
   content: '';
@@ -97,16 +104,30 @@ body {
   50% { background: linear-gradient(225deg, rgba(216, 66, 122, 0.08) 0%, rgba(184, 93, 166, 0.08) 50%, rgba(139, 79, 157, 0.08) 100%); }
 }
 
-/* Header */
+/* Header com comportamento responsivo */
 header {
   background: var(--gradient-header);
   padding: 1rem 0;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  transition: var(--transition);
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              backdrop-filter 0.3s ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   backdrop-filter: var(--blur-medium);
+  will-change: transform, opacity;
+}
+
+/* Header escondido */
+header.header-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .header-scrolled {
@@ -144,6 +165,39 @@ header {
   font-weight: 600;
   color: var(--white);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ffffff, #ffffff, #ffffff, #ffffff);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: headerTextGlow 4s ease-in-out infinite;
+  will-change: background-position;
+}
+
+@keyframes headerTextGlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Fallback para navegadores que não suportam background-clip */
+@supports not (-webkit-background-clip: text) {
+  .logo-text {
+    color: #ffffff;
+    animation: headerTextColorFallback 4s ease-in-out infinite;
+  }
+  
+  @keyframes headerTextColorFallback {
+    0%, 100% {
+      color: #ffffff;
+    }
+    50% {
+      color: #d0d0d0;
+    }
+  }
 }
 
 /* Botão tema */
@@ -172,12 +226,12 @@ header {
   box-shadow: var(--shadow-lg), var(--shadow-glow);
 }
 
-/* Main content */
+/* Main content com espaçamento para header fixo */
 main {
   position: relative;
   z-index: 1;
   min-height: calc(100vh - 140px);
-  padding: 0 1rem;
+  padding: 140px 1rem 0 1rem; /* Padding top para compensar header fixo */
 }
 
 /* Sections */
@@ -353,7 +407,7 @@ section:hover {
   box-shadow: var(--shadow-lg), var(--shadow-glow);
 }
 
-/* Popup */
+/* Popup da galeria */
 .popup {
   display: none;
   position: fixed;
@@ -365,15 +419,18 @@ section:hover {
   align-items: center;
   padding: 2rem;
   overflow-y: auto;
-}
-
-.popup.popup-opening {
   animation: fadeIn 0.4s ease-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; backdrop-filter: blur(0px); }
-  to { opacity: 1; backdrop-filter: var(--blur-medium); }
+  from { 
+    opacity: 0; 
+    backdrop-filter: blur(0px); 
+  }
+  to { 
+    opacity: 1; 
+    backdrop-filter: var(--blur-medium); 
+  }
 }
 
 .popup-content {
@@ -771,6 +828,10 @@ footer {
   .popup-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  main {
+    padding-top: 120px; /* Ajusta padding para telas menores */
+  }
 }
 
 @media (max-width: 576px) {
@@ -811,6 +872,29 @@ footer {
     font-size: 0.9rem;
     padding: 0.8rem 2rem;
   }
+
+  main {
+    padding-top: 100px; /* Ajusta padding para mobile */
+  }
+}
+
+/* Reduz a animação para usuários que preferem menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  .logo-text {
+    animation-duration: 8s;
+    animation-timing-function: linear;
+  }
+
+  header {
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Utilitários finais */
@@ -821,74 +905,4 @@ footer {
 a:focus, button:focus, input:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(216, 66, 122, 0.3);
-}
-
-/* ========================================= */
-/* CSS EXTRA - ANIMAÇÃO TEXTO DO HEADER     */
-/* ========================================= */
-
-/* Animação sutil de degradê para o texto do header */
-.logo-text {
-  background: linear-gradient(45deg, #ffffff, #e5e5e5, #d0d0d0, #ffffff);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: headerTextGlow 4s ease-in-out infinite;
-  will-change: background-position;
-}
-
-@keyframes headerTextGlow {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-/* Fallback para navegadores que não suportam background-clip */
-@supports not (-webkit-background-clip: text) {
-  .logo-text {
-    color: #ffffff;
-    animation: headerTextColorFallback 4s ease-in-out infinite;
-  }
-  
-  @keyframes headerTextColorFallback {
-    0%, 100% {
-      color: #ffffff;
-    }
-    50% {
-      color: #d0d0d0;
-    }
-  }
-}
-
-/* Versão alternativa mais sutil (descomente se preferir) */
-/*
-.logo-text {
-  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%, #ffffff 100%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: headerTextSubtle 6s ease-in-out infinite;
-}
-
-@keyframes headerTextSubtle {
-  0%, 100% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 0%;
-  }
-}
-*/
-
-/* Reduz a animação para usuários que preferem menos movimento */
-@media (prefers-reduced-motion: reduce) {
-  .logo-text {
-    animation-duration: 8s;
-    animation-timing-function: linear;
-  }
 }
