@@ -7,21 +7,42 @@
     <title>Ana Kettelen - Nail Designer</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="parallax-background">
+<body>
     <header>
-        <div class="logo-container">
-            <img src="img/logo.png" alt="Logo Ana Kettelen Nail Designer" class="logo-img">
-            <span class="logo-text">Ana Kettelen Nail designer</span>
+        <div class="header-container">
+            <a href="#home" class="logo-link">
+                <span class="logo-text">Ana Kettelen Nail Designer</span>
+            </a>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#trabalhos">Trabalhos</a>
+                <a href="#servicos">Serviços</a>
+                <a href="#agendar">Agendar</a>
+            </nav>
+            <a href="https://wa.me/5564993432827?text=Olá%20vim%20pelo%20site%20e%20queria%20agendar%20um%20horário" class="btn-whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
         </div>
     </header>
 
     <main>
-        <section class="welcome">
-            <h2>Bem-vinda ao espaço onde suas unhas se transformam em arte!</h2>
+        <section id="home" class="welcome">
+            <div class="welcome-content">
+                <h1>Bem-vinda ao espaço onde suas unhas se transformam em arte!</h1>
+                <p>Especialista em alongamentos luxuosos e cuidados minuciosos para elevar sua autoestima e destacar sua beleza natural.</p>
+                <div class="welcome-buttons">
+                    <a href="#agendar" class="btn-primary">Agende seu Horário</a>
+                    <a href="#trabalhos" class="btn-outline">Ver Portfólio</a>
+                </div>
+            </div>
         </section>
 
-        <section class="gallery">
+        <section id="trabalhos" class="gallery">
+            <h2 class="section-title">Trabalhos Realizados</h2>
             <div class="gallery-preview">
                 <img src="img/01.jpg" alt="Trabalho de unhas 1" class="gallery-image">
                 <img src="img/02.jpg" alt="Trabalho de unhas 2" class="gallery-image">
@@ -34,65 +55,86 @@
             <div class="popup-content">
                 <button class="close-popup">&times;</button>
                 <div class="popup-grid">
+                    <!-- Javascript will populate this -->
                 </div>
             </div>
         </div>
 
-        <section class="services">
-            <h2>Nossos Serviços</h2>
-            <div class="service-card">
-                <h3>Alongamento de Fibra de Vidro</h3>
-                <p>Técnica que utiliza fibra de vidro para alongar as unhas de forma resistente e natural, proporcionando durabilidade e beleza.</p>
-            </div>
-
-            <div class="service-card">
-                <h3>Alongamento de Gel no Molde</h3>
-                <p>Processo de alongamento utilizando moldes e gel específico, criando unhas com aparência natural e formato personalizado.</p>
-            </div>
-
-            <div class="service-card">
-                <h3>Banho de Gel</h3>
-                <p>Técnica que fortalece suas unhas naturais com uma camada protetora de gel, proporcionando brilho e durabilidade.</p>
-            </div>
-
-            <div class="service-card">
-                <h3>Blindagem</h3>
-                <p>Tratamento que protege e fortalece as unhas naturais, ideal para unhas fracas ou que lascam facilmente.</p>
-            </div>
-
-            <div class="service-card">
-                <h3>Esmaltação em Gel</h3>
-                <p>Aplicação de esmalte em gel que garante maior durabilidade da cor e brilho intenso por várias semanas.</p>
+        <section id="servicos" class="services">
+            <h2 class="section-title">Nossos Serviços</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="icon-wrapper"><i class="fas fa-magic"></i></div>
+                    <h3>Fibra de Vidro</h3>
+                    <p>A técnica mais resistente e natural, ideal para quem busca durabilidade e um acabamento impecável.</p>
+                    <a href="#agendar" class="service-link">Consultar Valores</a>
+                </div>
+                <div class="service-card">
+                    <div class="icon-wrapper"><i class="fas fa-leaf"></i></div>
+                    <h3>Gel no Molde</h3>
+                    <p>Modelagem personalizada para o formato ideal das suas unhas, garantindo simetria e elegância.</p>
+                    <a href="#agendar" class="service-link">Consultar Valores</a>
+                </div>
+                <div class="service-card">
+                    <div class="icon-wrapper"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Banho de Gel</h3>
+                    <p>Camada protetora que fortalece as unhas naturais, prevenindo quebras e mantendo a cor impecável.</p>
+                    <a href="#agendar" class="service-link">Consultar Valores</a>
+                </div>
             </div>
         </section>
 
-        <section class="benefits">
-            <h2>Benefícios do Banho em Gel</h2>
-            <ul>
-                <li>Maior resistência às unhas naturais</li>
-                <li>Durabilidade superior ao esmalte comum</li>
-                <li>Proteção contra quebras e lascamentos</li>
-                <li>Aparência sempre impecável</li>
-                <li>Brilho intenso e duradouro</li>
-            </ul>
+        <section id="beneficios" class="benefits">
+            <div class="benefits-container">
+                <div class="benefits-text">
+                    <h2 class="section-title left">Benefícios do Banho em Gel</h2>
+                    <p class="benefits-subtitle">Descubra por que este é o tratamento favorito das nossas clientes para manter unhas impecáveis.</p>
+                    <ul class="benefits-list">
+                        <li>
+                            <span class="number">1</span>
+                            <div>
+                                <h4>Fortalecimento</h4>
+                                <p>Cria uma barreira rígida que impede que as unhas naturais lasquem ou quebrem.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="number">2</span>
+                            <div>
+                                <h4>Brilho Duradouro</h4>
+                                <p>O gel mantém o brilho intenso da esmaltação por muito mais tempo que o comum.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="number">3</span>
+                            <div>
+                                <h4>Crescimento Saudável</h4>
+                                <p>Ao evitar quebras, suas unhas conseguem atingir o comprimento desejado com saúde.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
-        <section class="contact">
-            <h2>Agende seu horário!</h2>
-            <p>Entre em contato agora mesmo e transforme suas unhas!</p>
-            <a href="https://wa.me/5564993432827?text=Olá%20vim%20pelo%20site%20e%20queria%20agendar%20um%20horário" 
-                class="whatsapp-button" 
-                target="_blank">
-                <i class="fab fa-whatsapp"></i> Agendar pelo WhatsApp
-            </a>
+        <section id="agendar" class="contact">
+            <div class="contact-box">
+                <h2>Pronta para brilhar?</h2>
+                <p>Não perca a oportunidade de ter as unhas dos seus sonhos. Atendimento personalizado em um ambiente exclusivo e sofisticado.</p>
+                <a href="https://wa.me/5564993432827?text=Olá%20vim%20pelo%20site%20e%20queria%20agendar%20um%20horário" 
+                    class="btn-whatsapp-large" 
+                    target="_blank">
+                    <i class="fab fa-whatsapp"></i> AGENDAR VIA WHATSAPP &rarr;
+                </a>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; Ana Kettelen - Nail Designer. Todos os direitos reservados.</p>
+        <div class="footer-container">
+            <p class="copyright">&copy; <span id="current-year"></span> Ana Kettelen Nail Designer. Todos os direitos reservados.</p>
+        </div>
     </footer>
 
     <script src="js/script.js"></script>
 </body>
 </html>
-
