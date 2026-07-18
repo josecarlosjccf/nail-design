@@ -19,8 +19,6 @@
   --shadow-md: 0 8px 24px rgba(181, 56, 108, 0.06), 0 4px 8px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 12px 32px rgba(181, 56, 108, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
   --shadow-card-hover: 0 20px 38px rgba(181, 56, 108, 0.16);
-  
-  /* Sombra de clique tátil sutil para o Mobile */
   --shadow-mobile-active: 0 10px 25px rgba(181, 56, 108, 0.12);
   
   --radius-sm: 8px;
@@ -77,18 +75,31 @@ a {
 .delay-4 { transition-delay: 0.2s; }
 
 /* ==========================================
-   HEADER
+   ANIMAÇÃO DE GRADIENTE DOS BOTÕES
+   ========================================== */
+@keyframes moverGradiente {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ==========================================
+   HEADER (Com efeito de Vidro Fosco / Glassmorphism)
    ========================================== */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: var(--gradient-brand);
+  /* Cores originais com transparência alpha para o efeito de vidro */
+  background: linear-gradient(to right, rgba(197, 58, 109, 0.82), rgba(112, 75, 134, 0.82));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 100;
   transition: transform 0.3s ease-out;
   transform: translateY(0);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 header.header-hidden {
@@ -189,7 +200,7 @@ section {
 }
 
 /* ==========================================
-   HERO / WELCOME (Centralizado no Desktop)
+   HERO / WELCOME
    ========================================== */
 .welcome {
   display: flex;
@@ -217,18 +228,20 @@ section {
   justify-content: center; 
 }
 
+/* Botão Principal com Transição de Gradiente Animada */
 .btn-primary {
-  background: var(--primary-hover);
+  background: linear-gradient(45deg, var(--primary-hover), #b5386c, #9c3365, var(--primary-hover));
+  background-size: 300% 300%;
+  animation: moverGradiente 4s ease infinite;
   color: var(--white);
   padding: 0.9rem 1.8rem;
   border-radius: 50px;
   font-weight: 600;
-  transition: all 0.2s;
+  transition: transform 0.2s;
   box-shadow: 0 4px 10px rgba(143, 41, 85, 0.2);
 }
 
 .btn-primary:hover {
-  background: var(--primary-dark);
   transform: translateY(-2px);
 }
 
@@ -304,15 +317,18 @@ section {
   box-shadow: var(--shadow-lg);
 }
 
+/* Botão Ver Mais com Transição de Gradiente Animada */
 .view-more-button {
-  background: var(--gradient-brand);
+  background: linear-gradient(45deg, #c53a6d, #704b86, #b5386c, #c53a6d);
+  background-size: 300% 300%;
+  animation: moverGradiente 4s ease infinite;
   color: var(--white);
   border: none;
   padding: 0.9rem 2.5rem;
   border-radius: 50px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: transform 0.2s;
   font-size: 1rem;
   box-shadow: 0 4px 10px rgba(112, 75, 134, 0.2);
 }
@@ -322,7 +338,7 @@ section {
 }
 
 /* ==========================================
-   POP-UP GALERIA REPOSITÓRIO
+   POP-UP E SKELETON LOADING (Item 4)
    ========================================== */
 .popup {
   display: none;
@@ -391,11 +407,27 @@ section {
   opacity: 0;
   transform: scale(0.97);
   transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  display: block;
 }
 
 .popup-grid img.loaded {
   opacity: 1;
   transform: scale(1);
+}
+
+/* Esqueletos Pulsantes (Skeleton Loading) */
+.skeleton-box {
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(90deg, #f2f2f2 25%, #e6e6e6 50%, #f2f2f2 75%);
+  background-size: 200% 100%;
+  animation: carregarSkeleton 1.5s infinite linear;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes carregarSkeleton {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 /* ==========================================
@@ -414,24 +446,18 @@ section {
   box-shadow: var(--shadow-lg);
   border: 1px solid rgba(240, 225, 230, 0.5);
   text-align: center;
-  /* Transição para suavizar o feedback de clique no mobile */
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; 
 }
 
-/* Efeito Hover/3D Restrito ao Computador (PC) */
 @media (min-width: 769px) {
-  .services-grid {
-    perspective: 1000px;
-  }
+  .services-grid { perspective: 1000px; }
   .service-card {
     transform-style: preserve-3d;
     transform: translateZ(0);
     transition: transform 0.15s ease-out, box-shadow 0.3s ease;
     will-change: transform;
   }
-  .service-card:hover {
-    box-shadow: var(--shadow-card-hover);
-  }
+  .service-card:hover { box-shadow: var(--shadow-card-hover); }
   .icon-wrapper { transform: translateZ(30px); }
   .service-card h3 { transform: translateZ(20px); }
   .service-card p { transform: translateZ(10px); }
@@ -491,9 +517,7 @@ section {
   margin-bottom: 2rem;
 }
 
-.benefits-list li:last-child {
-  margin-bottom: 0;
-}
+.benefits-list li:last-child { margin-bottom: 0; }
 
 .benefits-list .number {
   background: var(--primary);
@@ -558,22 +582,23 @@ section {
 }
 
 /* ==========================================
-   FOOTER
+   FOOTER (Com efeito de Vidro Fosco / Glassmorphism)
    ========================================== */
 footer {
-  background: var(--gradient-brand);
+  background: linear-gradient(to right, rgba(197, 58, 109, 0.85), rgba(112, 75, 134, 0.85));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 2.5rem;
   color: var(--white);
   text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* ==========================================
-   RESPONSIVIDADE AJUSTADA (MOBILE PLANO COM INTERAÇÃO TÁTIL)
+   RESPONSIVIDADE AJUSTADA
    ========================================== */
 @media (max-width: 1024px) {
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -582,38 +607,14 @@ footer {
         padding: 0 1.2rem !important;
     }
 
-    main {
-        padding-top: 70px;
-    }
+    main { padding-top: 70px; }
+    nav { display: none !important; }
+    .header-container { padding: 0.8rem 1.2rem !important; }
+    .logo-text { font-size: 1.1rem !important; }
+    .btn-whatsapp { padding: 0.4rem 0.8rem !important; font-size: 0.85rem !important; }
+    .section-title { font-size: 1.7rem !important; margin-bottom: 1.8rem !important; }
+    .services-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
 
-    nav {
-        display: none !important;
-    }
-
-    .header-container {
-        padding: 0.8rem 1.2rem !important;
-    }
-
-    .logo-text {
-        font-size: 1.1rem !important;
-    }
-
-    .btn-whatsapp {
-        padding: 0.4rem 0.8rem !important;
-        font-size: 0.85rem !important;
-    }
-
-    .section-title {
-        font-size: 1.7rem !important;
-        margin-bottom: 1.8rem !important;
-    }
-
-    .services-grid {
-        grid-template-columns: 1fr !important;
-        gap: 1.5rem !important; 
-    }
-
-    /* CONFIGURAÇÃO BASE MOBILE PARA OS CARDS DE SERVIÇO */
     .service-card {
         padding: 2rem 1.2rem !important; 
         box-shadow: var(--shadow-md) !important;
@@ -621,98 +622,28 @@ footer {
         border: 1px solid rgba(240, 225, 230, 0.5) !important;
     }
 
-    /* MICRO-INTERAÇÃO SUTIL AO CLICAR/TOCAR NOS CARDS (MOBILE) */
     .service-card:active, .benefits-container:active {
-        border-color: rgba(181, 56, 108, 0.4) !important; /* Contorno bem leve na cor tema */
-        box-shadow: var(--shadow-mobile-active) !important;  /* Sombra levemente espalhada */
-        transform: scale(0.99) !important;                 /* Pequeno recuo de clique */
+        border-color: rgba(181, 56, 108, 0.4) !important; 
+        box-shadow: var(--shadow-mobile-active) !important;  
+        transform: scale(0.99) !important;                 
     }
 
-    .service-card h3 {
-        font-size: 1.15rem !important;
-    }
-
-    .service-card p {
-        font-size: 0.9rem !important;
-    }
-
-    .icon-wrapper {
-        width: 52px !important;
-        height: 52px !important;
-        font-size: 1.3rem !important;
-        margin-bottom: 1rem !important;
-    }
-
-    /* Ajuste da Seção Benefícios */
-    .benefits-container {
-        padding: 2rem 1.2rem !important;
-    }
-
-    .benefits-subtitle {
-        font-size: 0.95rem !important;
-        margin-bottom: 1.8rem !important;
-    }
-
-    .benefits-list li {
-        gap: 1rem !important;
-        margin-bottom: 1.5rem !important;
-    }
-
-    .benefits-list h4 {
-        font-size: 1rem !important;
-    }
-
-    /* Ajuste da Seção Contato */
-    .contact-box {
-        padding: 3rem 1.2rem !important;
-    }
-
-    .contact-box h2 {
-        font-size: 1.8rem !important;
-    }
-
-    .contact-box p {
-        font-size: 0.95rem !important;
-        margin-bottom: 1.8rem !important;
-    }
-
-    .btn-whatsapp-large {
-        width: 100%;
-        justify-content: center;
-        font-size: 1rem !important;
-        padding: 1rem !important;
-    }
-
-    /* Galeria preview */
-    .gallery-preview {
-        grid-template-columns: 1fr !important;
-        gap: 1rem !important;
-    }
-
-    .gallery-image {
-        height: 280px !important;
-    }
-
-    .welcome {
-        text-align: center !important;
-    }
-
-    .welcome h1 {
-        font-size: 2rem !important;
-    }
-
-    .welcome-buttons {
-        flex-direction: column;
-        gap: 0.8rem;
-    }
-
-    .btn-primary, .btn-outline {
-        text-align: center;
-        width: 100%;
-        padding: 0.8rem !important;
-    }
-    
-    .popup-content {
-        padding: 4rem 1rem 1rem 1rem;
-    }
+    .service-card h3 { font-size: 1.15rem !important; }
+    .service-card p { font-size: 0.9rem !important; }
+    .icon-wrapper { width: 52px !important; height: 52px !important; font-size: 1.3rem !important; margin-bottom: 1rem !important; }
+    .benefits-container { padding: 2rem 1.2rem !important; }
+    .benefits-subtitle { font-size: 0.95rem !important; margin-bottom: 1.8rem !important; }
+    .benefits-list li { gap: 1rem !important; margin-bottom: 1.5rem !important; }
+    .benefits-list h4 { font-size: 1rem !important; }
+    .contact-box { padding: 3rem 1.2rem !important; }
+    .contact-box h2 { font-size: 1.8rem !important; }
+    .contact-box p { font-size: 0.95rem !important; margin-bottom: 1.8rem !important; }
+    .btn-whatsapp-large { width: 100%; justify-content: center; font-size: 1rem !important; padding: 1rem !important; }
+    .gallery-preview { grid-template-columns: 1fr !important; gap: 1rem !important; }
+    .gallery-image { height: 280px !important; }
+    .welcome { text-align: center !important; }
+    .welcome h1 { font-size: 2rem !important; }
+    .welcome-buttons { flex-direction: column; gap: 0.8rem; }
+    .btn-primary, .btn-outline { text-align: center; width: 100%; padding: 0.8rem !important; }
+    .popup-content { padding: 4rem 1rem 1rem 1rem; }
 }
