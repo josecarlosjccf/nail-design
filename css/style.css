@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-color: #ffffff;
+  --bg-color: #fcf8fa; /* Mudado para um rosa/cinza bem sutil de fundo para dar contraste ao vidro */
   --text-main: #000000;
   --text-muted: #333333;
   --primary: #b5386c;
@@ -14,12 +14,12 @@
   --white: #ffffff;
   --border-color: #f0e1e6;
   
-  /* Sombreamentos Modernos */
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-  --shadow-md: 0 8px 24px rgba(181, 56, 108, 0.06), 0 4px 8px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 12px 32px rgba(181, 56, 108, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
-  --shadow-card-hover: 0 20px 38px rgba(181, 56, 108, 0.16);
-  --shadow-mobile-active: 0 10px 25px rgba(181, 56, 108, 0.12);
+  /* Sombreamentos Líquidos e Fluidos */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+  --shadow-md: 0 8px 32px rgba(181, 56, 108, 0.05);
+  --shadow-lg: 0 16px 40px rgba(181, 56, 108, 0.08);
+  --shadow-card-hover: 0 24px 48px rgba(181, 56, 108, 0.14);
+  --shadow-mobile-active: 0 12px 28px rgba(181, 56, 108, 0.12);
   
   --radius-sm: 8px;
   --radius-md: 16px;
@@ -75,7 +75,7 @@ a {
 .delay-4 { transition-delay: 0.2s; }
 
 /* ==========================================
-   ANIMAÇÃO DE GRADIENTE DOS BOTÕES
+   ANIMAÇÃO DOS BOTÕES (Mais Lenta - 8 Segundos)
    ========================================== */
 @keyframes moverGradiente {
   0% { background-position: 0% 50%; }
@@ -84,22 +84,22 @@ a {
 }
 
 /* ==========================================
-   HEADER (Com efeito de Vidro Fosco / Glassmorphism)
+   HEADER (Vidro Fosco Realçado com Mais Contraste)
    ========================================== */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  /* Cores originais com transparência alpha para o efeito de vidro */
-  background: linear-gradient(to right, rgba(197, 58, 109, 0.82), rgba(112, 75, 134, 0.82));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  /* Reduzida a opacidade das cores de fundo para o efeito de vidro finalmente aparecer */
+  background: linear-gradient(to right, rgba(197, 58, 109, 0.65), rgba(112, 75, 134, 0.65));
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
   z-index: 100;
   transition: transform 0.3s ease-out;
   transform: translateY(0);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(112, 75, 134, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 header.header-hidden {
@@ -119,7 +119,7 @@ header.header-hidden {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--white);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
 
 nav {
@@ -131,7 +131,7 @@ nav a {
   font-weight: 500;
   color: var(--white);
   transition: opacity 0.2s;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.15);
   position: relative;
 }
 
@@ -228,11 +228,11 @@ section {
   justify-content: center; 
 }
 
-/* Botão Principal com Transição de Gradiente Animada */
+/* Animação desacelerada para 8s */
 .btn-primary {
   background: linear-gradient(45deg, var(--primary-hover), #b5386c, #9c3365, var(--primary-hover));
   background-size: 300% 300%;
-  animation: moverGradiente 4s ease infinite;
+  animation: moverGradiente 8s ease infinite; 
   color: var(--white);
   padding: 0.9rem 1.8rem;
   border-radius: 50px;
@@ -317,11 +317,11 @@ section {
   box-shadow: var(--shadow-lg);
 }
 
-/* Botão Ver Mais com Transição de Gradiente Animada */
+/* Animação desacelerada para 8s */
 .view-more-button {
   background: linear-gradient(45deg, #c53a6d, #704b86, #b5386c, #c53a6d);
   background-size: 300% 300%;
-  animation: moverGradiente 4s ease infinite;
+  animation: moverGradiente 8s ease infinite; 
   color: var(--white);
   border: none;
   padding: 0.9rem 2.5rem;
@@ -338,7 +338,7 @@ section {
 }
 
 /* ==========================================
-   POP-UP E SKELETON LOADING (Item 4)
+   POP-UP E SKELETON LOADING
    ========================================== */
 .popup {
   display: none;
@@ -415,7 +415,6 @@ section {
   transform: scale(1);
 }
 
-/* Esqueletos Pulsantes (Skeleton Loading) */
 .skeleton-box {
   width: 100%;
   height: 250px;
@@ -431,7 +430,7 @@ section {
 }
 
 /* ==========================================
-   CARDS DE SERVIÇOS (3D Ativo APENAS no PC)
+   CARDS DE SERVIÇOS (Vidro Líquido Altamente Sutil)
    ========================================== */
 .services-grid {
   display: grid;
@@ -440,13 +439,17 @@ section {
 }
 
 .service-card {
-  background: var(--white);
+  /* Transparência e desfoque simulando uma gota de vidro fluida */
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   padding: 3rem 2rem;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid rgba(240, 225, 230, 0.5);
+  box-shadow: var(--shadow-md);
+  /* Borda reflexiva simulando o brilho do contorno do vidro */
+  border: 1px solid rgba(255, 255, 255, 0.6);
   text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease; 
 }
 
 @media (min-width: 769px) {
@@ -454,10 +457,14 @@ section {
   .service-card {
     transform-style: preserve-3d;
     transform: translateZ(0);
-    transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+    transition: transform 0.15s ease-out, box-shadow 0.3s ease, background-color 0.3s, border-color 0.3s;
     will-change: transform;
   }
-  .service-card:hover { box-shadow: var(--shadow-card-hover); }
+  .service-card:hover { 
+    box-shadow: var(--shadow-card-hover);
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.9);
+  }
   .icon-wrapper { transform: translateZ(30px); }
   .service-card h3 { transform: translateZ(20px); }
   .service-card p { transform: translateZ(10px); }
@@ -489,16 +496,18 @@ section {
 }
 
 /* ==========================================
-   BENEFÍCIOS DO BANHO
+   BENEFÍCIOS DO BANHO (Vidro Líquido Sutil)
    ========================================== */
 .benefits-container {
   display: flex;
   align-items: center;
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: var(--radius-lg);
   padding: 3.5rem;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid rgba(240, 225, 230, 0.4);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
@@ -582,16 +591,16 @@ section {
 }
 
 /* ==========================================
-   FOOTER (Com efeito de Vidro Fosco / Glassmorphism)
+   FOOTER (Vidro Realçado)
    ========================================== */
 footer {
-  background: linear-gradient(to right, rgba(197, 58, 109, 0.85), rgba(112, 75, 134, 0.85));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: linear-gradient(to right, rgba(197, 58, 109, 0.65), rgba(112, 75, 134, 0.65));
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
   padding: 2.5rem;
   color: var(--white);
   text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 /* ==========================================
@@ -619,11 +628,11 @@ footer {
         padding: 2rem 1.2rem !important; 
         box-shadow: var(--shadow-md) !important;
         transform: none !important; 
-        border: 1px solid rgba(240, 225, 230, 0.5) !important;
     }
 
     .service-card:active, .benefits-container:active {
-        border-color: rgba(181, 56, 108, 0.4) !important; 
+        border-color: rgba(181, 56, 108, 0.3) !important; 
+        background: rgba(255, 255, 255, 0.7) !important;
         box-shadow: var(--shadow-mobile-active) !important;  
         transform: scale(0.99) !important;                 
     }
