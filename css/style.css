@@ -186,16 +186,19 @@ section {
 }
 
 /* ==========================================
-   HERO / WELCOME
+   HERO / WELCOME (Centralizado no Desktop)
    ========================================== */
 .welcome {
   display: flex;
   align-items: center;
+  justify-content: center; /* Centraliza o bloco inteiro horizontalmente */
+  text-align: center;      /* Centraliza as linhas de texto */
   min-height: 55vh;
 }
 
 .welcome-content {
-  max-width: 650px;
+  max-width: 800px;        /* Aumentado para o título renderizar imponente e elegante */
+  margin: 0 auto;
 }
 
 .welcome h1 {
@@ -208,6 +211,7 @@ section {
 .welcome-buttons {
   display: flex;
   gap: 1.2rem;
+  justify-content: center; /* Centraliza os botões lado a lado */
 }
 
 .btn-primary {
@@ -410,7 +414,7 @@ section {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Efeito Hover/3D Restrito à telas grandes (PC) */
+/* Efeito Hover/3D Restrito ao Computador (PC) */
 @media (min-width: 769px) {
   .services-grid {
     perspective: 1000px;
@@ -559,7 +563,7 @@ footer {
 }
 
 /* ==========================================
-   RESPONSIVIDADE AJUSTADA (MOBILE PERFEITO)
+   RESPONSIVIDADE AJUSTADA (MOBILE PERFEITO E PLANO)
    ========================================== */
 @media (max-width: 1024px) {
     .services-grid {
@@ -570,7 +574,7 @@ footer {
 @media (max-width: 768px) {
     /* Ajustes estruturais de respiro e separação */
     section {
-        margin: 3.5rem auto !important; /* Separa as seções de forma clara */
+        margin: 3.5rem auto !important; 
         padding: 0 1.2rem !important;
     }
 
@@ -600,16 +604,16 @@ footer {
         margin-bottom: 1.8rem !important;
     }
 
-    /* Correção do tamanho dos cards de serviço */
+    /* Correção total dos cards no celular */
     .services-grid {
         grid-template-columns: 1fr !important;
-        gap: 1.5rem !important; /* Espaço ideal entre um card e outro */
+        gap: 1.5rem !important; 
     }
 
     .service-card {
-        padding: 2rem 1.2rem !important; /* Diminui o tamanho exagerado interno */
+        padding: 2rem 1.2rem !important; 
         box-shadow: var(--shadow-md) !important;
-        transform: none !important; /* Desativa qualquer rotação residual */
+        transform: none !important; /* Remove qualquer inclinação ou 3D no mobile */
     }
 
     .service-card h3 {
@@ -675,6 +679,11 @@ footer {
 
     .gallery-image {
         height: 280px !important;
+    }
+
+    /* Ajuste de Texto do Topo no Mobile */
+    .welcome {
+        text-align: center !important;
     }
 
     .welcome h1 {
