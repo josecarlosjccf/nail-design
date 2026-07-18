@@ -115,4 +115,24 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         elementsToFade.forEach(el => el.classList.add('visible'));
     }
+
+    // --- PROTEÇÃO DO CÓDIGO ---
+    // Desabilitar botão direito
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+    // Desabilitar atalhos de teclado (F12, Ctrl+Shift+I, Ctrl+U, etc)
+    document.addEventListener('keydown', (e) => {
+        if (
+            e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
+            (e.ctrlKey && (e.key === 'U' || e.key === 'u'))
+        ) {
+            e.preventDefault();
+        }
+    });
+
+    // Armadilha para o Inspecionar Elemento (Incomoda quem conseguir abrir)
+    setInterval(() => {
+        Function("debugger")();
+    }, 500);
 });
