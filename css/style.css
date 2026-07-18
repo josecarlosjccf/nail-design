@@ -20,6 +20,9 @@
   --shadow-lg: 0 12px 32px rgba(181, 56, 108, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
   --shadow-card-hover: 0 20px 38px rgba(181, 56, 108, 0.16);
   
+  /* Sombra de clique tátil sutil para o Mobile */
+  --shadow-mobile-active: 0 10px 25px rgba(181, 56, 108, 0.12);
+  
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
@@ -191,13 +194,13 @@ section {
 .welcome {
   display: flex;
   align-items: center;
-  justify-content: center; /* Centraliza o bloco inteiro horizontalmente */
-  text-align: center;      /* Centraliza as linhas de texto */
+  justify-content: center; 
+  text-align: center;      
   min-height: 55vh;
 }
 
 .welcome-content {
-  max-width: 800px;        /* Aumentado para o título renderizar imponente e elegante */
+  max-width: 800px;        
   margin: 0 auto;
 }
 
@@ -211,7 +214,7 @@ section {
 .welcome-buttons {
   display: flex;
   gap: 1.2rem;
-  justify-content: center; /* Centraliza os botões lado a lado */
+  justify-content: center; 
 }
 
 .btn-primary {
@@ -411,7 +414,8 @@ section {
   box-shadow: var(--shadow-lg);
   border: 1px solid rgba(240, 225, 230, 0.5);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Transição para suavizar o feedback de clique no mobile */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; 
 }
 
 /* Efeito Hover/3D Restrito ao Computador (PC) */
@@ -469,6 +473,7 @@ section {
   padding: 3.5rem;
   box-shadow: var(--shadow-lg);
   border: 1px solid rgba(240, 225, 230, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .benefits-subtitle {
@@ -563,7 +568,7 @@ footer {
 }
 
 /* ==========================================
-   RESPONSIVIDADE AJUSTADA (MOBILE PERFEITO E PLANO)
+   RESPONSIVIDADE AJUSTADA (MOBILE PLANO COM INTERAÇÃO TÁTIL)
    ========================================== */
 @media (max-width: 1024px) {
     .services-grid {
@@ -572,7 +577,6 @@ footer {
 }
 
 @media (max-width: 768px) {
-    /* Ajustes estruturais de respiro e separação */
     section {
         margin: 3.5rem auto !important; 
         padding: 0 1.2rem !important;
@@ -604,16 +608,24 @@ footer {
         margin-bottom: 1.8rem !important;
     }
 
-    /* Correção total dos cards no celular */
     .services-grid {
         grid-template-columns: 1fr !important;
         gap: 1.5rem !important; 
     }
 
+    /* CONFIGURAÇÃO BASE MOBILE PARA OS CARDS DE SERVIÇO */
     .service-card {
         padding: 2rem 1.2rem !important; 
         box-shadow: var(--shadow-md) !important;
-        transform: none !important; /* Remove qualquer inclinação ou 3D no mobile */
+        transform: none !important; 
+        border: 1px solid rgba(240, 225, 230, 0.5) !important;
+    }
+
+    /* MICRO-INTERAÇÃO SUTIL AO CLICAR/TOCAR NOS CARDS (MOBILE) */
+    .service-card:active, .benefits-container:active {
+        border-color: rgba(181, 56, 108, 0.4) !important; /* Contorno bem leve na cor tema */
+        box-shadow: var(--shadow-mobile-active) !important;  /* Sombra levemente espalhada */
+        transform: scale(0.99) !important;                 /* Pequeno recuo de clique */
     }
 
     .service-card h3 {
@@ -681,7 +693,6 @@ footer {
         height: 280px !important;
     }
 
-    /* Ajuste de Texto do Topo no Mobile */
     .welcome {
         text-align: center !important;
     }
