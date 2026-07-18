@@ -492,3 +492,62 @@ footer {
         padding: 4rem 1rem 1rem 1rem;
     }
 }
+
+/* ==========================================================================
+   RESPONSIVIDADE E AJUSTES DE TELA (DESKTOP VS MOBILE)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    /* Esconde o menu de links (Home, Trabalhos, etc) apenas no Mobile */
+    nav {
+        display: none !important;
+    }
+
+    /* Organiza o cabeçalho no mobile em uma única linha horizontal */
+    .header-container {
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0.8rem 1.5rem !important;
+        gap: 0;
+    }
+
+    /* Ajusta o tamanho do texto da logo para não quebrar linha no celular */
+    .logo-text {
+        font-size: 1.15rem !important;
+        white-space: nowrap;
+    }
+
+    /* Ajusta o botão do WhatsApp no topo para ficar mais compacto no mobile */
+    .btn-whatsapp {
+        padding: 0.4rem 0.8rem !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .btn-whatsapp .wpp-text {
+        display: inline-block; /* Mantém a escrita ativa ao lado da logo */
+    }
+
+    /* Outros ajustes gerais para celular */
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-preview {
+        grid-template-columns: 1fr;
+    }
+    
+    .welcome h1 {
+        font-size: 2rem;
+    }
+    
+    .popup-content {
+        padding: 4rem 1rem 1rem 1rem;
+    }
+}
