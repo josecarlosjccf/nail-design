@@ -9,21 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // 2. INDICADOR DE SCROLL (DESAPARECER AO ROLAR)
-    // ==========================================================================
-    const scrollIndicator = document.querySelector(".scroll-indicator");
-    if (scrollIndicator) {
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 50) {
-                scrollIndicator.style.opacity = "0";
-            } else {
-                scrollIndicator.style.opacity = "0.7";
-            }
-        });
-    }
-
-    // ==========================================================================
-    // 3. ANIMAÇÃO DE ENTRADA AO ROLAR (Scroll Reveal Nativo)
+    // 2. ANIMAÇÃO DE ENTRADA AO ROLAR (Scroll Reveal Nativo)
     // ==========================================================================
     const elementosParaRevelar = [
         ...document.querySelectorAll(".service-card"),
@@ -33,12 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelector(".contact-box")
     ];
 
-    // Adiciona as classes bases e os delays sequenciais dinamicamente
     elementosParaRevelar.forEach((el, index) => {
         if (el) {
             el.classList.add("reveal");
             
-            // Se forem os cards de serviço, cria o efeito em cascata (delay individual)
             if (el.classList.contains("service-card")) {
                 el.classList.add(`delay-${(index % 4) + 1}`);
             }
@@ -59,43 +43,28 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     window.addEventListener("scroll", checarScrollReveal);
-    checarScrollReveal(); // Dispara uma vez no início caso haja elementos visíveis
+    checarScrollReveal();
 
     // ==========================================================================
-    // 4. POP-UP DA GALERIA (Com carregamento Lazy com Fade-In progressivo)
+    // 3. POP-UP DA GALERIA (Seguro e Estável contra bloqueios de CORS/Local)
     // ==========================================================================
     const viewMoreBtn = document.querySelector(".view-more-button");
     const galleryPopup = document.getElementById("galleryPopup");
     const closePopupBtn = document.querySelector(".close-popup");
-    const popupGrid = document.querySelector(".popup-grid");
+    const popupImages = document.querySelectorAll(".popup-grid img");
 
-    const imagensPortfolio = [];
-    for (let i = 1; i <= 14; i++) {
-        const numeroFormatado = i < 10 ? `0${i}` : i;
-        imagensPortfolio.push(`img/${numeroFormatado}.jpg`);
-    }
-
-    if (viewMoreBtn && galleryPopup && popupGrid) {
+    if (viewMoreBtn && galleryPopup) {
         viewMoreBtn.onclick = () => {
-            popupGrid.innerHTML = "";
-
-            imagensPortfolio.forEach((srcImg, index) => {
-                const img = document.createElement("img");
-                img.src = srcImg;
-                img.alt = `Trabalho realizado ${index + 1}`;
-                popupGrid.appendChild(img);
-
-                // Efeito Fade-In Progressivo: Dispara o efeito quando a imagem termina de baixar
-                img.onload = () => {
-                    // Adiciona um pequeno atraso em cascata baseado no índice da imagem
-                    setTimeout(() => {
-                        img.classList.add("loaded");
-                    }, index * 60); 
-                };
-            });
-
+            // Torna o modal visível
             galleryPopup.style.display = "flex";
             document.body.classList.add("no-scroll");
+
+            // Aplica o efeito cascata nas imagens estáticas com segurança total
+            popupImages.forEach((img, index) => {
+                setTimeout(() => {
+                    img.classList.add("loaded");
+                }, index * 60);
+            });
         };
     }
 
@@ -103,6 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const fecharPopup = () => {
             galleryPopup.style.display = "none";
             document.body.classList.remove("no-scroll");
+            // Reseta a classe para reanimar na próxima abertura
+            popupImages.forEach(img => img.classList.remove("loaded"));
         };
 
         if (closePopupBtn) closePopupBtn.onclick = fecharPopup;
@@ -112,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // 5. EFETUAR OCULTAMENTO DO MENU SUPERIOR AO ROLAR
+    // 4. EFETUAR OCULTAMENTO DO MENU SUPERIOR AO ROLAR
     // ==========================================================================
     const header = document.querySelector("header");
     let ultimoScroll = window.scrollY || window.pageYOffset;
@@ -130,29 +101,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { passive: true });
 
     // ==========================================================================
-    // 6. EFEITO 3D INTERATIVO (Tilt) NOS CARDS DE SERVIÇO (Somente Desktop)
+    // 5. EFEITO 3D INTERATIVO (Tilt) NOS CARDS DE SERVIÇO (Somente Desktop)
     // ==========================================================================
     const cards = document.querySelectorAll(".service-card");
 
-    if (window.innerWidth > 768) { // Bloqueia em celulares para otimizar desempenho de toque
+    if (window.innerWidth > 768) {
         cards.forEach(card => {
             card.addEventListener("mousemove", (e) => {
                 const limitesCard = card.getBoundingClientRect();
                 const cardLargura = limitesCard.width;
                 const cardAltura = limitesCard.height;
                 
-                // Encontra a posição do mouse em relação ao centro exato do card
                 const mouseX = e.clientX - limitesCard.left - (cardLargura / 2);
                 const mouseY = e.clientY - limitesCard.top - (cardAltura / 2);
                 
-                // Calcula a rotação (multiplicadores baixos evitam distorções exageradas)
-                const rotacaoX = ((mouseY / cardAltura) * -1) * 20; // Max 20 graus
+                const ]rotacaoX = ((mouseY / cardAltura) * -1) * 20; 
                 const rotacaoY = (mouseX / cardLargura) * 20;
 
                 card.style.transform = `rotateX(${rotacaoX}deg) rotateY(${rotacaoY}deg) translateZ(10px)`;
             });
 
-            // Reseta a posição tridimensional quando o mouse sai de cima
             card.addEventListener("mouseleave", () => {
                 card.style.transform = `rotateX(0deg) rotateY(0deg) translateZ(0)`;
             });
