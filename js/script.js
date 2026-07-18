@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Mobile Menu Logic
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navMenu = document.getElementById('navMenu');
+
+    if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+    }
+
     const galleryPopup = document.getElementById('galleryPopup');
     const closeBtn = document.querySelector('.close-popup');
     const viewMoreBtn = document.querySelector('.view-more-button');
