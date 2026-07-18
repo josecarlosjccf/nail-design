@@ -14,11 +14,11 @@
   --white: #ffffff;
   --border-color: #f0e1e6;
   
-  /* Sombreamentos Avançados com Efeito de Profundidade 3D */
-  --shadow-3d-sm: 0 2px 4px rgba(0,0,0,0.05), 0 4px 8px rgba(181, 56, 108, 0.05);
-  --shadow-3d-md: 0 10px 20px rgba(0,0,0,0.06), 0 6px 6px rgba(181, 56, 108, 0.04), inset 0 1px 0 rgba(255,255,255,0.8);
-  --shadow-3d-lg: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(181, 56, 108, 0.06), inset 0 1px 0 rgba(255,255,255,0.9);
-  --shadow-card-hover: 0 22px 40px rgba(181, 56, 108, 0.18), 0 12px 16px rgba(0, 0, 0, 0.08);
+  /* Sombreamentos Modernos */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-md: 0 8px 24px rgba(181, 56, 108, 0.06), 0 4px 8px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 32px rgba(181, 56, 108, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 20px 38px rgba(181, 56, 108, 0.16);
   
   --radius-sm: 8px;
   --radius-md: 16px;
@@ -55,12 +55,12 @@ a {
 }
 
 /* ==========================================
-   CONFIGURAÇÃO GERAL DE ANIMAÇÃO (Scroll Reveal)
+   CONFIGURAÇÃO DE ANIMAÇÃO (Scroll Reveal)
    ========================================== */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: translateY(25px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 .reveal.active {
@@ -68,10 +68,10 @@ a {
   transform: translateY(0);
 }
 
-.delay-1 { transition-delay: 0.1s; }
-.delay-2 { transition-delay: 0.2s; }
-.delay-3 { transition-delay: 0.3s; }
-.delay-4 { transition-delay: 0.4s; }
+.delay-1 { transition-delay: 0.05s; }
+.delay-2 { transition-delay: 0.1s; }
+.delay-3 { transition-delay: 0.15s; }
+.delay-4 { transition-delay: 0.2s; }
 
 /* ==========================================
    HEADER
@@ -83,9 +83,9 @@ header {
   width: 100%;
   background: var(--gradient-brand);
   z-index: 100;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: transform 0.3s ease-out;
   transform: translateY(0);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 header.header-hidden {
@@ -105,8 +105,7 @@ header.header-hidden {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--white);
-  font-family: 'Inter', serif;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 nav {
@@ -117,8 +116,8 @@ nav {
 nav a {
   font-weight: 500;
   color: var(--white);
-  transition: color 0.3s, text-shadow 0.3s;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  transition: opacity 0.2s;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
   position: relative;
 }
 
@@ -131,13 +130,11 @@ nav a::after {
   bottom: -4px;
   left: 0;
   background-color: var(--white);
-  transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
+  transition: transform 0.2s ease-out;
 }
 
 nav a:hover::after {
   transform: scaleX(1);
-  transform-origin: bottom left;
 }
 
 .btn-whatsapp {
@@ -147,21 +144,45 @@ nav a:hover::after {
   border-radius: 50px;
   font-weight: 600;
   font-size: 1rem;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.2s, background 0.2s;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 4px 6px rgba(37, 211, 102, 0.2), inset 0 -2px 0 rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(37, 211, 102, 0.15);
 }
 
 .btn-whatsapp:hover {
   background: var(--green-wpp-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(37, 211, 102, 0.3), inset 0 -2px 0 rgba(0,0,0,0.1);
+  transform: translateY(-1px);
 }
 
 .btn-whatsapp:active, .btn-primary:active, .btn-outline:active, .view-more-button:active, .btn-whatsapp-large:active {
-  transform: scale(0.96) translateY(0) !important;
+  transform: scale(0.97) !important;
+}
+
+/* ==========================================
+   MAIN SECTIONS
+   ========================================== */
+main {
+  padding-top: 80px;
+}
+
+section {
+  max-width: 1200px;
+  margin: 5rem auto;
+  padding: 0 2rem;
+}
+
+.section-title {
+  text-align: center;
+  color: var(--primary);
+  font-size: 2.2rem;
+  margin-bottom: 2.5rem;
+  font-weight: 700;
+}
+
+.section-title.left {
+  text-align: left;
 }
 
 /* ==========================================
@@ -170,8 +191,7 @@ nav a:hover::after {
 .welcome {
   display: flex;
   align-items: center;
-  min-height: 60vh;
-  position: relative;
+  min-height: 55vh;
 }
 
 .welcome-content {
@@ -183,7 +203,6 @@ nav a:hover::after {
   color: var(--primary);
   line-height: 1.25;
   margin-bottom: 2rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .welcome-buttons {
@@ -197,14 +216,13 @@ nav a:hover::after {
   padding: 0.9rem 1.8rem;
   border-radius: 50px;
   font-weight: 600;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 4px 10px rgba(143, 41, 85, 0.3), inset 0 -3px 0 rgba(0,0,0,0.2);
+  transition: all 0.2s;
+  box-shadow: 0 4px 10px rgba(143, 41, 85, 0.2);
 }
 
 .btn-primary:hover {
   background: var(--primary-dark);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(143, 41, 85, 0.4), inset 0 -3px 0 rgba(0,0,0,0.2);
+  transform: translateY(-2px);
 }
 
 .btn-outline {
@@ -213,31 +231,30 @@ nav a:hover::after {
   padding: 0.9rem 1.8rem;
   border-radius: 50px;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: all 0.2s;
   background: transparent;
 }
 
 .btn-outline:hover {
   background: var(--primary-light);
-  transform: translateY(-2px);
 }
 
 /* ==========================================
-   DIVISOR VISUAL SUTIL (SECTION DIVIDER)
+   DIVISOR VISUAL SUTIL
    ========================================== */
 .section-divider {
   display: flex;
   align-items: center;
   justify-content: center;
   max-width: 300px;
-  margin: 3rem auto;
-  opacity: 0.4;
+  margin: 4rem auto;
+  opacity: 0.3;
 }
 
 .divider-line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(to var(--gradient-brand), var(--primary), transparent);
+  background: linear-gradient(to right, var(--primary), transparent);
 }
 
 .section-divider .divider-line:first-child {
@@ -245,11 +262,11 @@ nav a:hover::after {
 }
 
 .divider-diamond {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   background: var(--primary);
   transform: rotate(45deg);
-  margin: 0 15px;
+  margin: 0 12px;
 }
 
 /* ==========================================
@@ -271,13 +288,13 @@ nav a:hover::after {
   height: 380px;
   object-fit: cover;
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-3d-md);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .gallery-image:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
 }
 
 .view-more-button {
@@ -288,14 +305,13 @@ nav a:hover::after {
   border-radius: 50px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.2s;
   font-size: 1rem;
-  box-shadow: 0 4px 10px rgba(112, 75, 134, 0.3), inset 0 -3px 0 rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(112, 75, 134, 0.2);
 }
 
 .view-more-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(112, 75, 134, 0.4), inset 0 -3px 0 rgba(0,0,0,0.15);
+  transform: translateY(-2px);
 }
 
 /* ==========================================
@@ -305,12 +321,12 @@ nav a:hover::after {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.8);
   z-index: 200;
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(4px);
 }
 
 .popup-content {
@@ -323,7 +339,7 @@ nav a:hover::after {
   position: relative;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 }
 
 .close-popup {
@@ -331,24 +347,23 @@ nav a:hover::after {
   top: 1.5rem;
   right: 1.5rem;
   background: var(--white);
-  width: 45px;
-  height: 45px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: #000;
   cursor: pointer;
   z-index: 201;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
 }
 
 .close-popup:hover {
-  transform: scale(1.1) rotate(90deg);
-  background: var(--primary-light);
+  transform: scale(1.05);
 }
 
 .popup-grid {
@@ -365,10 +380,10 @@ nav a:hover::after {
   height: 250px;
   object-fit: cover;
   border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-3d-sm);
+  box-shadow: var(--shadow-sm);
   opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: scale(0.97);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
 .popup-grid img.loaded {
@@ -377,58 +392,66 @@ nav a:hover::after {
 }
 
 /* ==========================================
-   CARDS DE SERVIÇOS (Profundidade 3D Ativa)
+   CARDS DE SERVIÇOS (3D Ativo APENAS no PC)
    ========================================== */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
-  perspective: 1200px;
 }
 
 .service-card {
   background: var(--white);
   padding: 3rem 2rem;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-3d-lg);
-  border: 1px solid rgba(240, 225, 230, 0.6);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(240, 225, 230, 0.5);
   text-align: center;
-  transform-style: preserve-3d;
-  transform: translateZ(0);
-  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
-  will-change: transform;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.service-card:hover {
-  box-shadow: var(--shadow-card-hover);
+/* Efeito Hover/3D Restrito à telas grandes (PC) */
+@media (min-width: 769px) {
+  .services-grid {
+    perspective: 1000px;
+  }
+  .service-card {
+    transform-style: preserve-3d;
+    transform: translateZ(0);
+    transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+    will-change: transform;
+  }
+  .service-card:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+  .icon-wrapper { transform: translateZ(30px); }
+  .service-card h3 { transform: translateZ(20px); }
+  .service-card p { transform: translateZ(10px); }
 }
 
 .icon-wrapper {
-  width: 65px;
-  height: 65px;
+  width: 60px;
+  height: 60px;
   background: var(--primary-light);
   color: var(--primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   margin: 0 auto 1.5rem;
-  transform: translateZ(35px);
-  box-shadow: 0 4px 10px rgba(181, 56, 108, 0.15);
 }
 
 .service-card h3 {
   color: var(--primary);
   margin-bottom: 1rem;
-  font-size: 1.3rem;
-  transform: translateZ(25px);
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
 .service-card p {
   color: var(--text-muted);
   font-size: 0.95rem;
-  transform: translateZ(15px);
 }
 
 /* ==========================================
@@ -440,8 +463,8 @@ nav a:hover::after {
   background: var(--white);
   border-radius: var(--radius-lg);
   padding: 3.5rem;
-  box-shadow: var(--shadow-3d-lg);
-  border: 1px solid rgba(240, 225, 230, 0.5);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(240, 225, 230, 0.4);
 }
 
 .benefits-subtitle {
@@ -459,18 +482,22 @@ nav a:hover::after {
   margin-bottom: 2rem;
 }
 
+.benefits-list li:last-child {
+  margin-bottom: 0;
+}
+
 .benefits-list .number {
   background: var(--primary);
   color: var(--white);
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   flex-shrink: 0;
-  box-shadow: 0 4px 8px rgba(181, 56, 108, 0.25);
+  box-shadow: 0 4px 8px rgba(181, 56, 108, 0.15);
 }
 
 .benefits-list h4 {
@@ -488,19 +515,17 @@ nav a:hover::after {
   border-radius: var(--radius-lg);
   padding: 4.5rem 2rem;
   text-align: center;
-  box-shadow: var(--shadow-3d-lg);
+  box-shadow: var(--shadow-lg);
 }
 
 .contact-box h2 {
-  font-size: 2.6rem;
+  font-size: 2.5rem;
   margin-bottom: 1.2rem;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .contact-box p {
   max-width: 600px;
   margin: 0 auto 2.5rem;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   font-size: 1.05rem;
 }
 
@@ -514,17 +539,13 @@ nav a:hover::after {
   display: inline-flex;
   align-items: center;
   gap: 0.8rem;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15), inset 0 -3px 0 rgba(0,0,0,0.06);
-}
-
-.btn-whatsapp-large i {
-  font-size: 1.6rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .btn-whatsapp-large:hover {
-  transform: scale(1.03) translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25), inset 0 -3px 0 rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* ==========================================
@@ -535,11 +556,10 @@ footer {
   padding: 2.5rem;
   color: var(--white);
   text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 /* ==========================================
-   RESPONSIVIDADE (MOBILE & TABLET)
+   RESPONSIVIDADE AJUSTADA (MOBILE PERFEITO)
    ========================================== */
 @media (max-width: 1024px) {
     .services-grid {
@@ -548,21 +568,26 @@ footer {
 }
 
 @media (max-width: 768px) {
+    /* Ajustes estruturais de respiro e separação */
+    section {
+        margin: 3.5rem auto !important; /* Separa as seções de forma clara */
+        padding: 0 1.2rem !important;
+    }
+
+    main {
+        padding-top: 70px;
+    }
+
     nav {
         display: none !important;
     }
 
     .header-container {
-        flex-direction: row !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        padding: 0.8rem 1.5rem !important;
-        gap: 0;
+        padding: 0.8rem 1.2rem !important;
     }
 
     .logo-text {
-        font-size: 1.15rem !important;
-        white-space: nowrap;
+        font-size: 1.1rem !important;
     }
 
     .btn-whatsapp {
@@ -570,39 +595,104 @@ footer {
         font-size: 0.85rem !important;
     }
 
-    .services-grid {
-        grid-template-columns: 1fr;
-        gap: 1.8rem;
+    .section-title {
+        font-size: 1.7rem !important;
+        margin-bottom: 1.8rem !important;
     }
-    
+
+    /* Correção do tamanho dos cards de serviço */
+    .services-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important; /* Espaço ideal entre um card e outro */
+    }
+
+    .service-card {
+        padding: 2rem 1.2rem !important; /* Diminui o tamanho exagerado interno */
+        box-shadow: var(--shadow-md) !important;
+        transform: none !important; /* Desativa qualquer rotação residual */
+    }
+
+    .service-card h3 {
+        font-size: 1.15rem !important;
+    }
+
+    .service-card p {
+        font-size: 0.9rem !important;
+    }
+
+    .icon-wrapper {
+        width: 52px !important;
+        height: 52px !important;
+        font-size: 1.3rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    /* Ajuste da Seção Benefícios */
+    .benefits-container {
+        padding: 2rem 1.2rem !important;
+    }
+
+    .benefits-subtitle {
+        font-size: 0.95rem !important;
+        margin-bottom: 1.8rem !important;
+    }
+
+    .benefits-list li {
+        gap: 1rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .benefits-list h4 {
+        font-size: 1rem !important;
+    }
+
+    /* Ajuste da Seção Contato */
+    .contact-box {
+        padding: 3rem 1.2rem !important;
+    }
+
+    .contact-box h2 {
+        font-size: 1.8rem !important;
+    }
+
+    .contact-box p {
+        font-size: 0.95rem !important;
+        margin-bottom: 1.8rem !important;
+    }
+
+    .btn-whatsapp-large {
+        width: 100%;
+        justify-content: center;
+        font-size: 1rem !important;
+        padding: 1rem !important;
+    }
+
+    /* Galeria preview */
     .gallery-preview {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
     }
 
     .gallery-image {
-        height: 320px;
+        height: 280px !important;
     }
-    
+
     .welcome h1 {
-        font-size: 2.2rem;
+        font-size: 2rem !important;
     }
 
     .welcome-buttons {
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.8rem;
     }
 
     .btn-primary, .btn-outline {
         text-align: center;
         width: 100%;
+        padding: 0.8rem !important;
     }
     
     .popup-content {
         padding: 4rem 1rem 1rem 1rem;
-    }
-
-    .benefits-container {
-        padding: 2rem;
     }
 }
