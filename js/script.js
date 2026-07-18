@@ -101,22 +101,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- PROTEÇÃO DO CÓDIGO ---
-    // Desabilitar botão direito
-    document.addEventListener('contextmenu', (e) => e.preventDefault());
+    // A proteção fica desativada se você acessar o site pelo localhost ou adicionar ?dev=true na URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const isDev = urlParams.get('dev') === 'true' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
 
-    // Desabilitar atalhos de teclado (F12, Ctrl+Shift+I, Ctrl+U, etc)
-    document.addEventListener('keydown', (e) => {
-        if (
-            e.key === 'F12' || 
-            (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
-            (e.ctrlKey && (e.key === 'U' || e.key === 'u'))
-        ) {
-            e.preventDefault();
-        }
-    });
+    if (!isDev) {
+        // Desabilitar botão direito
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
 
-    // Armadilha para o Inspecionar Elemento (Incomoda quem conseguir abrir)
-    setInterval(() => {
-        Function("debugger")();
-    }, 500);
+        // Desabilitar atalhos de teclado (F12, Ctrl+Shift+I, Ctrl+U, etc)
+        document.addEventListener('keydown', (e) => {
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
+                (e.ctrlKey && (e.key === 'U' || e.key === 'u'))
+            ) {
+                e.preventDefault();
+            }
+        });
+
+        // Armadilha para o Inspecionar Elemento
+        setInterval(() => {
+            Function("debugger")();
+        }, 500);
+    }
 });
