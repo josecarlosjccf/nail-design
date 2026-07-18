@@ -19,15 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Gera a lista de caminhos de img/01.jpg até img/14.jpg dinamicamente
     const imagensPortfolio = [];
     for (let i = 1; i <= 14; i++) {
-        // Formata o número com zero à esquerda se for menor que 10 (ex: 01, 02... 10, 11...)
         const numeroFormatado = i < 10 ? `0${i}` : i;
         imagensPortfolio.push(`img/${numeroFormatado}.jpg`);
     }
 
     // Função para abrir o pop-up e carregar as fotos
     if (viewMoreBtn && galleryPopup && popupGrid) {
-        viewMoreBtn.addEventListener("click", () => {
-            // Limpa o grid para não duplicar se abrir mais de uma vez
+        viewMoreBtn.onclick = () => {
+            // Limpa o grid para não duplicar imagens
             popupGrid.innerHTML = "";
 
             // Cria cada imagem dinamicamente dentro do pop-up
@@ -41,44 +40,48 @@ document.addEventListener("DOMContentLoaded", () => {
             // Mostra o pop-up e trava a rolagem da página de fundo
             galleryPopup.style.display = "flex";
             document.body.classList.add("no-scroll");
-        });
+        };
     }
 
     // Função para fechar o pop-up
-    if (closePopupBtn && galleryPopup) {
+    if (galleryPopup) {
         const fecharPopup = () => {
             galleryPopup.style.display = "none";
             document.body.classList.remove("no-scroll");
         };
 
-        closePopupBtn.addEventListener("click", fecharPopup);
+        if (closePopupBtn) {
+            closePopupBtn.onclick = fecharPopup;
+        }
 
         // Fecha também se a cliente clicar na parte escura fora do conteúdo
-        galleryPopup.addEventListener("click", (e) => {
+        galleryPopup.onclick = (e) => {
             if (e.target === galleryPopup) {
                 fecharPopup();
             }
-        });
+        };
     }
 
     // ==========================================
     // 3. EFEITO DO MENU (ESCONDER AO ROLAR PARA BAIXO)
     // ==========================================
     const header = document.querySelector("header");
-    let ultimoScroll = 0;
+    let ultimoScroll = window.scrollY || window.pageYOffset;
 
     window.addEventListener("scroll", () => {
-        const scrollAtual = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollAtual = window.scrollY || window.pageYOffset;
+
+        // Evita bugs em rolagens negativas (comum no Safari/iOS)
+        if (scrollAtual < 0) return; 
 
         // Se rolar para baixo e passou do topo do header, esconde ele
         if (scrollAtual > ultimoScroll && scrollAtual > 100) {
             header.classList.add("header-hidden");
-        } else {
+        } else if (scrollAtual < ultimoScroll) {
             // Se rolar para cima, mostra o header novamente
             header.classList.remove("header-hidden");
         }
 
-        // Garante que o valor nunca seja negativo
-        ultimoScroll = scrollAtual <= 0 ? 0 : scrollAtual;
-    });
+        ultimoScroll = scrollAtual;
+    }, { passive: true });
 });
