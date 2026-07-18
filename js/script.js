@@ -80,4 +80,23 @@ document.addEventListener('DOMContentLoaded', () => {
             lastScrollY = currentScrollY;
         }, { passive: true });
     }
+
+    // Scroll Animations Observer
+    const elementsToFade = document.querySelectorAll('.welcome-content, .section-title, .gallery-image, .view-more-button, .service-card, .benefits-container, .contact-box');
+    elementsToFade.forEach(el => el.classList.add('fade-up'));
+
+    if ('IntersectionObserver' in window) {
+        const animObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    animObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        elementsToFade.forEach(el => animObserver.observe(el));
+    } else {
+        elementsToFade.forEach(el => el.classList.add('visible'));
+    }
 });
