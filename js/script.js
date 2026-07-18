@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // 2. ANIMAÇÃO DE ENTRADA INTELIGENTE AO ROLAR (Scroll Reveal Corrigido)
+    // 2. ANIMAÇÃO DE ENTRADA INTELIGENTE AO ROLAR (Scroll Reveal)
     // ==========================================================================
     const elementosParaRevelar = [
         ...document.querySelectorAll(".service-card"),
@@ -29,14 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const checarScrollReveal = () => {
-        // Define uma margem confortável para ativar o elemento antes que ele suma da tela
         const gatilhoAtivacao = window.innerHeight * 0.9; 
-
         elementosParaRevelar.forEach(el => {
             if (el) {
                 const limites = el.getBoundingClientRect();
-                
-                // Se o topo do elemento entrou na tela OU se ele já está visível logo de início
                 if (limites.top < gatilhoAtivacao) {
                     el.classList.add("active");
                 }
@@ -44,10 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    // Executa imediatamente para ativar tudo o que já estiver visível logo ao carregar a página
     const executarPrimeiraCarga = () => {
         checarScrollReveal();
-        // Uma segunda checagem rápida garante que o carregamento assíncrono de imagens não atrase o efeito
         setTimeout(checarScrollReveal, 300); 
     };
 
@@ -55,22 +49,55 @@ document.addEventListener("DOMContentLoaded", () => {
     executarPrimeiraCarga();
 
     // ==========================================================================
-    // 3. POP-UP DA GALERIA
+    // 3. POP-UP DA GALERIA COM SKELETON E LAZY LOADING NATIVO (Item 4)
     // ==========================================================================
     const viewMoreBtn = document.querySelector(".view-more-button");
     const galleryPopup = document.getElementById("galleryPopup");
     const closePopupBtn = document.querySelector(".close-popup");
-    const popupImages = document.querySelectorAll(".popup-grid img");
+    const popupGrid = document.querySelector(".popup-grid");
 
-    if (viewMoreBtn && galleryPopup) {
+    const imagensPortfolio = [];
+    for (let i = 1; i <= 14; i++) {
+        const numeroFormatado = i < 10 ? `0${i}` : i;
+        imagensPortfolio.push(`img/${numeroFormatado}.jpg`);
+    }
+
+    if (viewMoreBtn && galleryPopup && popupGrid) {
         viewMoreBtn.onclick = () => {
+            popupGrid.innerHTML = ""; // Limpa a grade antiga
             galleryPopup.style.display = "flex";
             document.body.classList.add("no-scroll");
 
-            popupImages.forEach((img, index) => {
-                setTimeout(() => {
-                    img.classList.add("loaded");
-                }, index * 60);
+            imagensPortfolio.forEach((srcImg, index) => {
+                // Cria o contêiner de estrutura do esqueleto pulsante
+                const skeleton = document.createElement("div");
+                skeleton.classList.add("skeleton-box");
+                popupGrid.appendChild(skeleton);
+
+                // Cria o elemento da imagem real
+                const img = document.createElement("img");
+                img.alt = `Trabalho realizado ${index + 1}`;
+                
+                // Aplica o Lazy Loading nativo para otimização de rede móvel
+                img.setAttribute("loading", "lazy"); 
+                
+                // Define a origem depois para disparar a carga de maneira correta
+                img.src = srcImg;
+
+                img.onload = () => {
+                    // Substitui o esqueleto pulsante pela imagem com transição fade-in progressiva
+                    setTimeout(() => {
+                        skeleton.replaceWith(img);
+                        setTimeout(() => {
+                            img.classList.add("loaded");
+                        }, 20);
+                    }, index * 50); // Delay cascata refinado para suavidade visual
+                };
+                
+                // Tratamento caso a imagem falhe ou demore demais
+                img.onerror = () => {
+                    skeleton.remove();
+                };
             });
         };
     }
@@ -79,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const fecharPopup = () => {
             galleryPopup.style.display = "none";
             document.body.classList.remove("no-scroll");
-            popupImages.forEach(img => img.classList.remove("loaded"));
+            popupGrid.innerHTML = "";
         };
 
         if (closePopupBtn) closePopupBtn.onclick = fecharPopup;
