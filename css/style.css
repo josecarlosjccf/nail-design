@@ -13,17 +13,17 @@
   --green-wpp-hover: #20ba5a;
   --white: #ffffff;
   
-  /* Física de Sombreamento Apple Liquid Glass (Reflexo de Lente Convexa) */
-  --shadow-liquid-md: 0 10px 30px rgba(181, 56, 108, 0.03), 
+  /* Filtro de Vidro Líquido Sutil (iOS) */
+  --shadow-liquid-md: 0 10px 25px rgba(181, 56, 108, 0.03), 
                        inset 0 2px 8px rgba(255, 255, 255, 0.6), 
                        inset 0 -1px 4px rgba(0, 0, 0, 0.01);
                        
-  --shadow-liquid-lg: 0 20px 45px rgba(112, 75, 134, 0.05), 
+  --shadow-liquid-lg: 0 16px 35px rgba(112, 75, 134, 0.04), 
                        inset 0 3px 10px rgba(255, 255, 255, 0.65), 
                        inset 0 -2px 6px rgba(0, 0, 0, 0.02);
                        
-  --shadow-liquid-hover: 0 28px 55px rgba(181, 56, 108, 0.12), 
-                         inset 0 2px 4px rgba(255, 255, 255, 0.75), 
+  --shadow-liquid-hover: 0 24px 50px rgba(181, 56, 108, 0.12), 
+                         inset 0 2px 4px rgba(255, 255, 255, 0.7), 
                          inset 0 -2px 6px rgba(181, 56, 108, 0.03);
 
   --radius-apple: 24px; 
@@ -59,7 +59,7 @@ a {
 }
 
 /* ==========================================
-   CONFIGURAÇÃO DE ANIMAÇÃO
+   CONFIGURAÇÃO DE ANIMAÇÃO (Scroll Reveal)
    ========================================== */
 .reveal {
   opacity: 0;
@@ -81,11 +81,6 @@ a {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
-}
-
-@keyframes flutuarIndicador {
-  0%, 100% { transform: translateY(0); opacity: 0.3; }
-  50% { transform: translateY(6px); opacity: 0.8; }
 }
 
 /* ==========================================
@@ -110,7 +105,7 @@ header.header-hidden {
 .header-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 1.2rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -177,25 +172,24 @@ nav a:hover::after {
 }
 
 /* ==========================================
-   MAIN SECTIONS
+   MAIN SECTIONS (Correção do tampamento do Header)
    ========================================== */
 main {
-  padding-top: 80px;
+  padding-top: 140px; /* Aumentado para o texto nunca ficar por baixo do Header */
 }
 
 section {
   max-width: 1200px;
-  margin: 6rem auto;
+  margin: 5rem auto;
   padding: 0 2rem;
 }
 
 .section-title {
   text-align: center;
   color: var(--primary);
-  font-size: 2.4rem;
-  margin-bottom: 3.5rem;
+  font-size: 2.2rem;
+  margin-bottom: 2.5rem;
   font-weight: 700;
-  letter-spacing: -0.5px;
 }
 
 /* ==========================================
@@ -203,12 +197,10 @@ section {
    ========================================== */
 .welcome {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center; 
   text-align: center;      
-  min-height: 60vh;
-  position: relative;
+  min-height: 45vh;
 }
 
 .welcome-content {
@@ -217,45 +209,16 @@ section {
 }
 
 .welcome h1 {
-  font-size: 3.4rem;
+  font-size: 3.2rem;
   color: var(--primary);
   line-height: 1.25;
-  margin-bottom: 2.5rem;
-  letter-spacing: -1px;
+  margin-bottom: 2rem;
 }
 
 .welcome-buttons {
   display: flex;
   gap: 1.2rem;
   justify-content: center; 
-  margin-bottom: 3rem;
-}
-
-/* INDICADOR DE ROLAGEM */
-.welcome::after {
-  content: '';
-  width: 20px;
-  height: 32px;
-  border: 2px solid var(--primary);
-  border-radius: 50px;
-  opacity: 0.3;
-  display: block;
-  margin: 2rem auto 0;
-  background: transparent;
-  position: relative;
-}
-
-.welcome-content::after {
-  content: '';
-  width: 4px;
-  height: 8px;
-  background: var(--primary);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: flutuarIndicador 2s infinite ease-in-out;
 }
 
 .btn-primary {
@@ -263,7 +226,7 @@ section {
   background-size: 300% 300%;
   animation: moverGradiente 8s ease infinite; 
   color: var(--white); 
-  padding: 0.9rem 2.2rem;
+  padding: 0.9rem 2rem;
   border-radius: 50px;
   font-weight: 600;
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -282,7 +245,7 @@ section {
   -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(181, 56, 108, 0.3);
   color: var(--primary-hover);
-  padding: 0.9rem 2.2rem;
+  padding: 0.9rem 2rem;
   border-radius: 50px;
   font-weight: 600;
   box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6);
@@ -296,21 +259,24 @@ section {
 }
 
 /* ==========================================
-   GALERIA
+   GALERIA DE PORTFÓLIO (Correção das Imagens Esticadas)
    ========================================== */
-.gallery { text-align: center; }
+.gallery {
+  text-align: center;
+}
 
 .gallery-preview {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.8rem;
-  margin-bottom: 3rem;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .gallery-image {
   width: 100%;
-  height: 380px;
-  object-fit: cover;
+  aspect-ratio: 4 / 3; /* Força proporção perfeita de foto fotográfica */
+  height: auto; /* Cancela altura esticada fixa anterior */
+  object-fit: cover; /* Recorta proporcionalmente sem distorcer na vertical */
   border-radius: var(--radius-apple);
   box-shadow: var(--shadow-liquid-md);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -334,11 +300,6 @@ section {
   font-size: 1rem;
   box-shadow: 0 6px 20px rgba(112, 75, 134, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.3);
   transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.view-more-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(112, 75, 134, 0.3);
 }
 
 /* ==========================================
@@ -413,21 +374,21 @@ section {
 .popup-grid img.loaded { opacity: 1; transform: scale(1); }
 
 /* ==========================================
-   CARDS DE SERVIÇOS
+   CARDS DE SERVIÇOS (CORRIGIDO: 2 por linha no Desktop)
    ========================================== */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2.5rem;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(2, 1fr); /* 2 ao lado do outro, os outros 2 descem automaticamente */
+  gap: 3rem; /* Espaço amplo e sem compressão lateral */
+  max-width: 900px; /* Alinha o bloco para não ficar esticado horizontalmente */
+  margin: 0 auto;
 }
 
 .service-card {
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
-  padding: 4rem 2rem;
+  padding: 3.5rem 2.5rem;
   border-radius: var(--radius-apple); 
   box-shadow: var(--shadow-liquid-md);
   border: 1.5px solid rgba(255, 255, 255, 0.6); 
@@ -435,9 +396,9 @@ section {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.service-card h3 { color: var(--primary); margin-bottom: 1.2rem; font-size: 1.3rem; font-weight: 700; transition: color 0.3s ease; }
-.service-card p { color: var(--text-muted); font-size: 0.95rem; transition: color 0.3s ease; line-height: 1.7; }
-.icon-wrapper { width: 64px; height: 64px; background: rgba(181, 56, 108, 0.05); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto 1.8rem; border: 1px solid rgba(181, 56, 108, 0.12); box-shadow: inset 0 1px 2px rgba(255,255,255,0.4); transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.service-card h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem; font-weight: 700; transition: color 0.3s ease; }
+.service-card p { color: var(--text-muted); font-size: 0.95rem; transition: color 0.3s ease; line-height: 1.6; }
+.icon-wrapper { width: 60px; height: 60px; background: rgba(181, 56, 108, 0.05); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1.5rem; border: 1px solid rgba(181, 56, 108, 0.12); box-shadow: inset 0 1px 2px rgba(255,255,255,0.4); transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 
 @media (min-width: 769px) {
   .services-grid { perspective: 1200px; }
@@ -488,15 +449,21 @@ section {
 .contact-box h2 { font-size: 2.8rem; margin-bottom: 1.2rem; color: var(--white); text-shadow: 0 2px 4px rgba(0,0,0,0.15); }
 .contact-box p { max-width: 600px; margin: 0 auto 2.5rem; font-size: 1.1rem; color: rgba(255, 255, 255, 0.9); text-shadow: 0 1px 3px rgba(0,0,0,0.15); }
 
+/* CORREÇÃO DO BOTÃO WHATSAPP FINAL (Não deforma nem encavala) */
 .btn-whatsapp-large {
   background: #25D366; 
   color: var(--white); 
-  padding: 1.1rem 3rem;
+  padding: 1.1rem 2.5rem;
   border-radius: 50px;
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  white-space: nowrap; /* Impede a quebra de texto bizarra */
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 24px rgba(32, 186, 90, 0.3);
+  box-shadow: 0 8px 24px rgba(32, 186, 90, 0.3), inset 0 2px 4px rgba(255,255,255,0.2);
   transition: transform 0.2s, background-color 0.2s;
 }
 
@@ -513,15 +480,88 @@ footer {
 }
 
 /* ==========================================
-   RESPONSIVIDADE AJUSTADA
+   RESPONSIVIDADE (MOBILE 100% REPARADO BASEADO NOS PRINTS)
    ========================================== */
 @media (max-width: 768px) {
-    section { margin: 4.5rem auto !important; padding: 0 1.4rem !important; }
-    .services-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
-    .service-card { padding: 3.5rem 1.8rem !important; box-shadow: var(--shadow-liquid-md) !important; transform: none !important; }
-    .service-card:active { background: rgba(181, 56, 108, 0.95) !important; }
-    .service-card:active h3 { color: var(--white) !important; }
-    .service-card:active p { color: rgba(255,255,255,0.9) !important; }
-    .service-card:active .icon-wrapper { background: var(--white) !important; color: var(--primary) !important; }
-    .contact-box { padding: 3.5rem 1.5rem !important; }
+    /* Impede o Header de tampar o texto inicial */
+    main { 
+        padding-top: 110px !important; 
+    }
+
+    /* CORREÇÃO VISUAL EXIGIDA: Mobile exibe APENAS Título do site e Botão do Whats */
+    nav { 
+        display: none !important; 
+    }
+    .header-container { 
+        padding: 0.8rem 1rem !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+    .logo-text { 
+        font-size: 1.1rem !important; 
+        white-space: nowrap !important;
+    }
+    .btn-whatsapp { 
+        padding: 0.5rem 0.9rem !important; 
+        font-size: 0.85rem !important;
+        display: inline-flex !important;
+    }
+
+    /* Espaçamento e Respiro das seções */
+    section { 
+        margin: 4rem auto !important; 
+        padding: 0 1rem !important; 
+    }
+    .section-title { 
+        font-size: 1.8rem !important; 
+        margin-bottom: 2rem !important; 
+    }
+    
+    /* Organização Perfeita dos Cards de Serviço */
+    .services-grid { 
+        grid-template-columns: 1fr !important; 
+        gap: 2rem !important; 
+        max-width: 100% !important;
+    }
+    .service-card { 
+        padding: 3rem 1.5rem !important; 
+        box-shadow: var(--shadow-liquid-md) !important; 
+        transform: none !important; 
+    }
+    .service-card h3 { font-size: 1.2rem !important; }
+    .service-card p { font-size: 0.92rem !important; }
+
+    /* Garantia Absoluta contra Imagens Esticadas */
+    .gallery-preview { 
+        grid-template-columns: 1fr !important; 
+        gap: 1.5rem !important; 
+    }
+    .gallery-image { 
+        height: 250px !important; 
+        aspect-ratio: 4 / 3 !important;
+        object-fit: cover !important; 
+    }
+
+    /* Ajuste da dobra do contato e do botão estourado */
+    .contact-box { 
+        padding: 3.5rem 1.2rem !important; 
+    }
+    .contact-box h2 { font-size: 2rem !important; }
+    .contact-box p { font-size: 0.95rem !important; margin-bottom: 2rem !important; }
+    
+    /* Resolução do bug do botão do WhatsApp do final */
+    .btn-whatsapp-large { 
+        width: 100% !important; 
+        font-size: 1rem !important; 
+        padding: 1.1rem 1rem !important;
+        white-space: normal !important; /* Permite que o texto quebre de forma limpa apenas se faltar tela física */
+    }
+
+    .welcome h1 { font-size: 2.1rem !important; }
+    .welcome-buttons { flex-direction: column; gap: 0.8rem; width: 100%; }
+    .btn-primary, .btn-outline { text-align: center; width: 100%; padding: 0.9rem !important; }
+    .benefits-container { padding: 2.5rem 1.2rem !important; }
+    .popup-content { padding: 4rem 1rem 1rem 1rem; }
 }
