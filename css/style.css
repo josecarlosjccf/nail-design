@@ -120,16 +120,6 @@ nav a:hover {
   gap: 1rem;
 }
 
-.mobile-menu-btn {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--white);
-  font-size: 1.8rem;
-  cursor: pointer;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
-}
-
 /* Main & Sections */
 main {
   padding-top: 80px;
@@ -285,7 +275,7 @@ section {
   max-width: 1000px;
   max-height: 85vh;
   border-radius: var(--radius-lg);
-  padding: 3rem 2rem 2rem 2rem;
+  padding: 5rem 2rem 2rem 2rem;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -549,33 +539,8 @@ footer {
 
 /* Responsive */
 @media (max-width: 992px) {
-  .mobile-menu-btn {
-    display: block;
-  }
-  
   nav {
-    position: fixed;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    background: var(--gradient-brand);
-    flex-direction: column;
-    gap: 0;
-    transform: translateY(-150%);
-    transition: transform 0.3s ease-in-out;
-    padding: 0;
-    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-    z-index: 99;
-  }
-  
-  nav.active {
-    transform: translateY(0);
-  }
-  
-  nav a {
-    padding: 1.2rem 2rem;
-    display: block;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: none;
   }
 
   .wpp-text {
