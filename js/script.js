@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // 2. ANIMAÇÃO DE ENTRADA AO ROLAR (Scroll Reveal Nativo)
+    // 2. ANIMAÇÃO DE ENTRADA INTELIGENTE AO ROLAR (Scroll Reveal Corrigido)
     // ==========================================================================
     const elementosParaRevelar = [
         ...document.querySelectorAll(".service-card"),
@@ -29,19 +29,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const checarScrollReveal = () => {
-        const gatilhoAtivacao = (window.innerHeight / 5) * 4;
+        // Define uma margem confortável para ativar o elemento antes que ele suma da tela
+        const gatilhoAtivacao = window.innerHeight * 0.9; 
+
         elementosParaRevelar.forEach(el => {
             if (el) {
-                const topoElemento = el.getBoundingClientRect().top;
-                if (topoElemento < gatilhoAtivacao) {
+                const limites = el.getBoundingClientRect();
+                
+                // Se o topo do elemento entrou na tela OU se ele já está visível logo de início
+                if (limites.top < gatilhoAtivacao) {
                     el.classList.add("active");
                 }
             }
         });
     };
 
+    // Executa imediatamente para ativar tudo o que já estiver visível logo ao carregar a página
+    const executarPrimeiraCarga = () => {
+        checarScrollReveal();
+        // Uma segunda checagem rápida garante que o carregamento assíncrono de imagens não atrase o efeito
+        setTimeout(checarScrollReveal, 300); 
+    };
+
     window.addEventListener("scroll", checarScrollReveal);
-    checarScrollReveal();
+    executarPrimeiraCarga();
 
     // ==========================================================================
     // 3. POP-UP DA GALERIA
@@ -96,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { passive: true });
 
     // ==========================================================================
-    // 5. EFEITO 3D INTERATIVO (Tilt) - AGORA APENAS PARA DESKTOP (PC)
+    // 5. EFEITO 3D INTERATIVO (Tilt) - APENAS PARA DESKTOP (PC)
     // ==========================================================================
     const cards3D = document.querySelectorAll(".service-card");
 
@@ -118,5 +129,4 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
-    // Toda a lógica de toque e giroscópio mobile bugada foi completamente removida.
 });
