@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     checarScrollReveal();
 
     // ==========================================================================
-    // 3. POP-UP DA GALERIA (Seguro e Estável contra bloqueios de CORS/Local)
+    // 3. POP-UP DA GALERIA
     // ==========================================================================
     const viewMoreBtn = document.querySelector(".view-more-button");
     const galleryPopup = document.getElementById("galleryPopup");
@@ -55,11 +55,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (viewMoreBtn && galleryPopup) {
         viewMoreBtn.onclick = () => {
-            // Torna o modal visível
             galleryPopup.style.display = "flex";
             document.body.classList.add("no-scroll");
 
-            // Aplica o efeito cascata nas imagens estáticas com segurança total
             popupImages.forEach((img, index) => {
                 setTimeout(() => {
                     img.classList.add("loaded");
@@ -72,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const fecharPopup = () => {
             galleryPopup.style.display = "none";
             document.body.classList.remove("no-scroll");
-            // Reseta a classe para reanimar na próxima abertura
             popupImages.forEach(img => img.classList.remove("loaded"));
         };
 
@@ -83,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // 4. EFETUAR OCULTAMENTO DO MENU SUPERIOR AO ROLAR
+    // 4. OCULTAMENTO DO MENU SUPERIOR AO ROLAR
     // ==========================================================================
     const header = document.querySelector("header");
     let ultimoScroll = window.scrollY || window.pageYOffset;
@@ -101,22 +98,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { passive: true });
 
     // ==========================================================================
-    // 5. EFEITO 3D INTERATIVO (Tilt) NOS CARDS DE SERVIÇO (Somente Desktop)
+    // 5. EFEITO 3D INTERATIVO (Tilt Avançado para Desktop & Mobile)
     // ==========================================================================
-    const cards = document.querySelectorAll(".service-card");
+    const cards3D = document.querySelectorAll(".service-card");
 
+    // LÓGICA DESKTOP (Passar o mouse - Mousemove)
     if (window.innerWidth > 768) {
-        cards.forEach(card => {
+        cards3D.forEach(card => {
             card.addEventListener("mousemove", (e) => {
-                const limitesCard = card.getBoundingClientRect();
-                const cardLargura = limitesCard.width;
-                const cardAltura = limitesCard.height;
+                const limites = card.getBoundingClientRect();
+                const mouseX = e.clientX - limites.left - (limites.width / 2);
+                const mouseY = e.clientY - limites.top - (limites.height / 2);
                 
-                const mouseX = e.clientX - limitesCard.left - (cardLargura / 2);
-                const mouseY = e.clientY - limitesCard.top - (cardAltura / 2);
-                
-                const ]rotacaoX = ((mouseY / cardAltura) * -1) * 20; 
-                const rotacaoY = (mouseX / cardLargura) * 20;
+                const rotacaoX = ((mouseY / limites.height) * -1) * 20; 
+                const rotacaoY = (mouseX / limites.width) * 20;
 
                 card.style.transform = `rotateX(${rotacaoX}deg) rotateY(${rotacaoY}deg) translateZ(10px)`;
             });
@@ -125,5 +120,41 @@ document.addEventListener("DOMContentLoaded", () => {
                 card.style.transform = `rotateX(0deg) rotateY(0deg) translateZ(0)`;
             });
         });
+    } 
+    // LÓGICA MOBILE (Efeito 3D via Touch / Arrastar de Dedo & Giroscópio)
+    else {
+        cards3D.forEach(card => {
+            card.addEventListener("touchmove", (e) => {
+                const toque = e.touches[0];
+                const limites = card.getBoundingClientRect();
+                
+                if (toque.clientX >= limites.left && toque.clientX <= limites.right &&
+                    toque.clientY >= limites.top && toque.clientY <= limites.bottom) {
+                    
+                    const toqueX = toque.clientX - limites.left - (limites.width / 2);
+                    const toqueY = toque.clientY - limites.top - (limites.height / 2);
+                    
+                    const rotacaoX = ((toqueY / limites.height) * -1) * 15; 
+                    const rotacaoY = (toqueX / limites.width) * 15;
+
+                    card.style.transform = `rotateX(${rotacaoX}deg) rotateY(${rotacaoY}deg) translateZ(10px)`;
+                }
+            }, { passive: true });
+
+            card.addEventListener("touchend", () => {
+                card.style.transform = `rotateX(0deg) rotateY(0deg) translateZ(0)`;
+            });
+        });
+
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener("deviceorientation", (e) => {
+                const inclinacaoY = e.gamma ? Math.min(Math.max(e.gamma, -15), 15) : 0; 
+                const inclinacaoX = e.beta ? Math.min(Math.max(e.beta - 45, -15), 15) : 0; 
+
+                cards3D.forEach(card => {
+                    card.style.transform = `rotateX(${-inclinacaoX}deg) rotateY(${inclinacaoY}deg) translateZ(5px)`;
+                });
+            });
+        }
     }
 });
