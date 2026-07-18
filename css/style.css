@@ -13,20 +13,20 @@
   --green-wpp-hover: #20ba5a;
   --white: #ffffff;
   
-  /* Física Apple Liquid Glass Reduzida em 30% (Mais Sutil e Sofisticada) */
-  --shadow-liquid-md: 0 10px 25px rgba(181, 56, 108, 0.03), 
-                       inset 0 2px 8px rgba(255, 255, 255, 0.6), 
+  /* Física Apple Liquid Glass Reduzida e Polida */
+  --shadow-liquid-md: 0 10px 30px rgba(181, 56, 108, 0.03), 
+                       inset 0 2px 8px rgba(255, 255, 255, 0.60), 
                        inset 0 -1px 4px rgba(0, 0, 0, 0.01);
                        
-  --shadow-liquid-lg: 0 16px 35px rgba(112, 75, 134, 0.04), 
+  --shadow-liquid-lg: 0 20px 45px rgba(112, 75, 134, 0.05), 
                        inset 0 3px 10px rgba(255, 255, 255, 0.65), 
                        inset 0 -2px 6px rgba(0, 0, 0, 0.02);
                        
-  --shadow-liquid-hover: 0 24px 50px rgba(181, 56, 108, 0.12), 
-                         inset 0 2px 4px rgba(255, 255, 255, 0.7), 
+  --shadow-liquid-hover: 0 28px 55px rgba(181, 56, 108, 0.12), 
+                         inset 0 2px 4px rgba(255, 255, 255, 0.75), 
                          inset 0 -2px 6px rgba(181, 56, 108, 0.03);
 
-  --radius-apple: 24px; /* Formato Squircle original */
+  --radius-apple: 24px; 
 }
 
 * {
@@ -46,7 +46,22 @@ body {
   color: var(--text-main);
   line-height: 1.6;
   overflow-x: hidden;
+  position: relative;
 }
+
+/* GRAFISMOS DE FUNDO (Luzes Difusas estilo Apple) */
+body::before, body::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(181, 56, 108, 0.04) 0%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+body::before { top: 20%; left: -10%; }
+body::after { top: 60%; right: -10%; background: radial-gradient(circle, rgba(112, 75, 134, 0.04) 0%, transparent 70%); }
 
 body.no-scroll {
   overflow: hidden !important;
@@ -81,6 +96,11 @@ a {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+@keyframes flutuarIndicador {
+  0%, 100% { transform: translateY(0); opacity: 0.3; }
+  50% { transform: translateY(6px); opacity: 0.8; }
 }
 
 /* ==========================================
@@ -180,16 +200,17 @@ main {
 
 section {
   max-width: 1200px;
-  margin: 5rem auto;
+  margin: 6rem auto; /* Aumentada a distância padrão entre seções */
   padding: 0 2rem;
 }
 
 .section-title {
   text-align: center;
   color: var(--primary);
-  font-size: 2.2rem;
-  margin-bottom: 2.5rem;
+  font-size: 2.4rem;
+  margin-bottom: 3.5rem; /* Mais respiro abaixo do título */
   font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 /* ==========================================
@@ -197,10 +218,12 @@ section {
    ========================================== */
 .welcome {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center; 
   text-align: center;      
-  min-height: 55vh;
+  min-height: 60vh;
+  position: relative;
 }
 
 .welcome-content {
@@ -209,35 +232,64 @@ section {
 }
 
 .welcome h1 {
-  font-size: 3.2rem;
+  font-size: 3.4rem;
   color: var(--primary);
   line-height: 1.25;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  letter-spacing: -1px;
 }
 
 .welcome-buttons {
   display: flex;
   gap: 1.2rem;
   justify-content: center; 
+  margin-bottom: 3rem;
 }
 
-/* BOTÃO PRINCIPAL: Sólido Rosa com reflexo sutil por cima */
+/* INDICADOR DE ROLAGEM SUTIL (Scroll Indicator Apple style) */
+.welcome::after {
+  content: '';
+  width: 20px;
+  height: 32px;
+  border: 2px solid var(--primary);
+  border-radius: 50px;
+  opacity: 0.3;
+  display: block;
+  margin: 2rem auto 0;
+  background: transparent;
+  position: relative;
+}
+
+/* Esfera interna piscando e descendo */
+.welcome-content::after {
+  content: '';
+  width: 4px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: flutuarIndicador 2s infinite ease-in-out;
+}
+
 .btn-primary {
   background: linear-gradient(45deg, #8f2955, #b5386c, #9c3365, #8f2955);
   background-size: 300% 300%;
   animation: moverGradiente 8s ease infinite; 
   color: var(--white); 
-  padding: 0.9rem 2rem;
+  padding: 0.9rem 2.2rem;
   border-radius: 50px;
   font-weight: 600;
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 0 6px 20px rgba(181, 56, 108, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.3);
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(181, 56, 108, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 10px 25px rgba(181, 56, 108, 0.3);
 }
 
 .btn-outline {
@@ -246,7 +298,7 @@ section {
   -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(181, 56, 108, 0.3);
   color: var(--primary-hover);
-  padding: 0.9rem 2rem;
+  padding: 0.9rem 2.2rem;
   border-radius: 50px;
   font-weight: 600;
   box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.6);
@@ -269,8 +321,8 @@ section {
 .gallery-preview {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
+  gap: 1.8rem; /* Mais respiro entre as fotos principais */
+  margin-bottom: 3rem;
 }
 
 .gallery-image {
@@ -287,7 +339,6 @@ section {
   box-shadow: var(--shadow-liquid-hover);
 }
 
-/* BOTÃO VER MAIS: Sólido preenchido */
 .view-more-button {
   background: linear-gradient(45deg, #c53a6d, #704b86, #b5386c, #c53a6d);
   background-size: 300% 300%;
@@ -377,22 +428,27 @@ section {
   transition: opacity 0.4s ease-out, transform 0.4s ease-out;
 }
 
-.popup-grid img.loaded {
-  opacity: 1;
-  transform: scale(1);
-}
+.popup-grid img.loaded { opacity: 1; transform: scale(1); }
 
 /* ==========================================
-   CARDS DE SERVIÇOS (Vidro Líquido Sutil e Transições Coordenadas)
+   CARDS DE SERVIÇOS (Afastados e Refinados no Desktop)
    ========================================== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem; /* Aumentado espaçamento lateral entre as colunas */
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
 .service-card {
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
-  padding: 3.5rem 2rem;
+  padding: 4rem 2rem; /* Mais respiro interno */
   border-radius: var(--radius-apple); 
   box-shadow: var(--shadow-liquid-md);
-  border: 1.5px solid rgba(255, 255, 255, 0.55); /* Brilho de contorno reduzido em 30% */
+  border: 1.5px solid rgba(255, 255, 255, 0.6); 
   text-align: center;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
               box-shadow 0.3s ease, 
@@ -402,8 +458,8 @@ section {
 
 .service-card h3 {
   color: var(--primary);
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 700;
   transition: color 0.3s ease;
 }
@@ -412,39 +468,38 @@ section {
   color: var(--text-muted);
   font-size: 0.95rem;
   transition: color 0.3s ease;
+  line-height: 1.7;
 }
 
 .icon-wrapper {
-  width: 60px;
-  height: 60px;
-  background: rgba(181, 56, 108, 0.06);
+  width: 64px;
+  height: 64px;
+  background: rgba(181, 56, 108, 0.05);
   color: var(--primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  margin: 0 auto 1.5rem;
+  font-size: 1.6rem;
+  margin: 0 auto 1.8rem;
   border: 1px solid rgba(181, 56, 108, 0.12);
   box-shadow: inset 0 1px 2px rgba(255,255,255,0.4);
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* INTERAÇÃO DESKTOP: Inversão Síncrona de Cores */
 @media (min-width: 769px) {
-  .services-grid { perspective: 1200px; gap: 2rem; }
+  .services-grid { perspective: 1200px; }
   .service-card {
     transform-style: preserve-3d;
     transform: translateZ(0);
     will-change: transform;
   }
   
-  /* Quando o card muda para rosa, as letras e o ícone mudam simultaneamente */
   .service-card:hover { 
     box-shadow: var(--shadow-liquid-hover);
     background: rgba(181, 56, 108, 0.9); 
     border-color: rgba(255, 255, 255, 0.25);
-    transform: translateY(-6px) scale(1.02);
+    transform: translateY(-8px) scale(1.02); /* Flutuação levemente maior e mais elegante */
   }
   
   .service-card:hover h3 { color: var(--white); }
@@ -452,7 +507,7 @@ section {
   .service-card:hover .icon-wrapper {
     background: var(--white);
     color: var(--primary);
-    transform: scale(1.05);
+    transform: scale(1.08) translateY(-4px); /* Elemento visual: Ícone ganha micro-levitação separada */
   }
 
   .icon-wrapper { transform: translateZ(30px); }
@@ -468,9 +523,9 @@ section {
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
   border-radius: var(--radius-apple);
-  padding: 3.5rem;
+  padding: 4rem;
   box-shadow: var(--shadow-liquid-md);
-  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -480,14 +535,14 @@ section {
 }
 
 .benefits-list { list-style: none; }
-.benefits-list li { display: flex; gap: 1.5rem; margin-bottom: 2rem; }
+.benefits-list li { display: flex; gap: 1.5rem; margin-bottom: 2.2rem; }
 .benefits-list li:last-child { margin-bottom: 0; }
 
 .benefits-list .number {
   background: rgba(181, 56, 108, 0.12);
   color: var(--primary);
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -497,33 +552,33 @@ section {
   border: 1px solid rgba(181, 56, 108, 0.15);
 }
 
-.benefits-list h4 { color: var(--primary); margin-bottom: 0.3rem; font-size: 1.1rem; }
+.benefits-list h4 { color: var(--primary); margin-bottom: 0.4rem; font-size: 1.15rem; }
 
 /* ==========================================
-   CARD DE CONTATO: Rosa Sólido com Letras Brancas e reflexo sutil
+   CARD DE CONTATO
    ========================================== */
 .contact-box {
-  background: linear-gradient(135deg, #b5386c, #8f2955); /* Retornado para Rosa Sólido */
+  background: linear-gradient(135deg, #b5386c, #8f2955); 
   border-radius: var(--radius-apple);
-  padding: 4.5rem 2rem;
+  padding: 5rem 2rem;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: var(--shadow-liquid-lg), inset 0 2px 4px rgba(255, 255, 255, 0.2); /* Reflexo de lente sutil por cima */
+  box-shadow: var(--shadow-liquid-lg), inset 0 2px 4px rgba(255, 255, 255, 0.2); 
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .contact-box h2 {
-  font-size: 2.6rem;
+  font-size: 2.8rem;
   margin-bottom: 1.2rem;
-  color: var(--white); /* Letra Branca */
+  color: var(--white); 
   text-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
 .contact-box p {
   max-width: 600px;
   margin: 0 auto 2.5rem;
-  font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.9); /* Letra Branca suave */
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9); 
   text-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
 
@@ -532,11 +587,10 @@ section {
   box-shadow: 0 24px 45px rgba(143, 41, 85, 0.25);
 }
 
-/* BOTÃO DO WHATSAPP CONTATO: Totalmente preenchido e sólido */
 .btn-whatsapp-large {
   background: #25D366; 
-  color: var(--white); /* Letra branca fixa */
-  padding: 1.1rem 2.8rem;
+  color: var(--white); 
+  padding: 1.1rem 3rem;
   border-radius: 50px;
   font-weight: 700;
   font-size: 1.15rem;
@@ -565,38 +619,37 @@ footer {
 }
 
 /* ==========================================
-   RESPONSIVIDADE (MOBILE TOTALMENTE SEPARADO E CORRIGIDO)
+   RESPONSIVIDADE CRUCIAL (MOBILE PERFEITAMENTE AFASTADO)
    ========================================== */
 @media (max-width: 1024px) {
-    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .services-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
 }
 
 @media (max-width: 768px) {
     section {
-        margin: 4rem auto !important; /* Aumentado o respiro geral entre blocos */
-        padding: 0 1.2rem !important;
+        margin: 4.5rem auto !important; /* Espaçamento geral entre blocos aumentado no mobile */
+        padding: 0 1.4rem !important;
     }
 
     main { padding-top: 70px; }
-    nav { display: none !important; }
     .header-container { padding: 0.8rem 1.2rem !important; }
     .logo-text { font-size: 1.1rem !important; }
     .btn-whatsapp { padding: 0.5rem 1rem !important; font-size: 0.9rem !important; }
-    .section-title { font-size: 1.7rem !important; margin-bottom: 2rem !important; }
+    .section-title { font-size: 1.8rem !important; margin-bottom: 2.5rem !important; }
     
-    /* CORREÇÃO CRUCIAL: Separação física dos cards de serviço no mobile */
+    /* SOLUÇÃO DEFINITIVA: Amplo distanciamento vertical entre os cards no celular */
     .services-grid { 
         grid-template-columns: 1fr !important; 
-        gap: 2rem !important; /* Espaçamento real e seguro para os cards não ficarem em cima um do outro */
+        gap: 2.5rem !important; /* Margem física gigante e segura para total respiro visual */
     }
 
     .service-card {
-        padding: 3rem 1.5rem !important; 
-        box-shadow: var(--shadow-liquid-md) !important;
+        padding: 3.5rem 1.8rem !important; /* Cards ganharam mais corpo e presença */
+        box-shadow: var(--shadow-liquid-lg) !important; /* Sombra sutilmente mais visível no mobile */
         transform: none !important; 
     }
 
-    /* Interação de clique fluido sincronizado no Mobile */
+    /* Clique fluido sincronizado mobile */
     .service-card:active {
         background: rgba(181, 56, 108, 0.95) !important;
         border-color: transparent !important;
@@ -605,24 +658,23 @@ footer {
     .service-card:active p { color: rgba(255,255,255,0.9) !important; }
     .service-card:active .icon-wrapper { background: var(--white) !important; color: var(--primary) !important; }
 
-    .service-card h3 { font-size: 1.2rem !important; }
-    .service-card p { font-size: 0.92rem !important; }
-    .icon-wrapper { width: 54px !important; height: 54px !important; font-size: 1.3rem !important; margin-bottom: 1.2rem !important; }
+    .service-card h3 { font-size: 1.25rem !important; margin-bottom: 1rem !important; }
+    .service-card p { font-size: 0.95rem !important; }
+    .icon-wrapper { width: 56px !important; height: 56px !important; font-size: 1.4rem !important; margin-bottom: 1.4rem !important; }
     
-    .benefits-container { padding: 2.5rem 1.2rem !important; }
-    .benefits-subtitle { font-size: 0.95rem !important; margin-bottom: 1.8rem !important; }
-    .benefits-list li { gap: 1rem !important; margin-bottom: 1.5rem !important; }
+    .benefits-container { padding: 3rem 1.5rem !important; }
+    .benefits-subtitle { font-size: 0.98rem !important; margin-bottom: 2rem !important; }
+    .benefits-list li { gap: 1rem !important; margin-bottom: 1.8rem !important; }
     
-    .contact-box { padding: 3.5rem 1.2rem !important; }
-    .contact-box h2 { font-size: 2rem !important; }
-    .contact-box p { font-size: 0.98rem !important; margin-bottom: 2rem !important; }
-    .btn-whatsapp-large { width: 100%; justify-content: center; font-size: 1rem !important; padding: 1.1rem !important; }
+    .contact-box { padding: 4rem 1.5rem !important; }
+    .contact-box h2 { font-size: 2.2rem !important; }
+    .contact-box p { font-size: 1rem !important; margin-bottom: 2.2rem !important; }
+    .btn-whatsapp-large { width: 100%; justify-content: center; font-size: 1.05rem !important; padding: 1.2rem !important; }
     
-    .gallery-preview { grid-template-columns: 1fr !important; gap: 1.2rem !important; }
+    .gallery-preview { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
     .gallery-image { height: 280px !important; }
-    .welcome { text-align: center !important; }
-    .welcome h1 { font-size: 2rem !important; }
+    .welcome h1 { font-size: 2.2rem !important; }
     .welcome-buttons { flex-direction: column; gap: 0.8rem; }
-    .btn-primary, .btn-outline { text-align: center; width: 100%; padding: 0.9rem !important; }
+    .btn-primary, .btn-outline { text-align: center; width: 100%; padding: 1rem !important; }
     .popup-content { padding: 4rem 1rem 1rem 1rem; }
 }
